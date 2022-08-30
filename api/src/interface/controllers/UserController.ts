@@ -1,3 +1,4 @@
+import { GetUsers } from "../../application/usecases/GetUsers";
 import { User } from "../../domain/entities/User";
 import {
   ControllerRequest,
@@ -7,15 +8,17 @@ import {
 export class UserController {
   public get(request: ControllerRequest): ControllerResponse {
     console.log(request);
-    const users: UserResponse[] = [
-      new User(1, "User1", "user1@test.local").toUserGetResponse(),
-      new User(2, "User2", "user2@test.local").toUserGetResponse(),
-      new User(3, "User3", "user3@test.local").toUserGetResponse(),
+    const getUserUsecase = new GetUsers();
+    const users: User[] = getUserUsecase.getUsers();
+    const usersResponse: UserResponse[] = [
+      users[0].toUserGetResponse(),
+      users[1].toUserGetResponse(),
+      users[2].toUserGetResponse(),
     ];
 
     const response: ControllerResponse = {
       status: 200,
-      body: users,
+      body: usersResponse,
     };
     return response;
   }
