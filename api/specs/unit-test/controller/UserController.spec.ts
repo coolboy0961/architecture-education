@@ -1,4 +1,4 @@
-import { UserController } from "../../../src/controller/UserController";
+import { UserController } from "../../../src/interfaces/controllers/UserController";
 
 describe("UserController Tests", () => {
   test("normal case", () => {
