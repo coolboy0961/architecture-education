@@ -21,7 +21,8 @@ app.listen(3000, () => {
 });
 
 // API定義
-app.get("/users", (req: express.Request, res: express.Response) => {
+const baseUrl = "/api";
+app.get(`${baseUrl}/users`, (req: express.Request, res: express.Response) => {
   const userController = new UserController();
   ExpressInterfaceAdapter.call(userController.get, req, res);
 });
