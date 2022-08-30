@@ -1,5 +1,6 @@
 import express from "express";
-import { UserController } from "./interfaces/controllers/UserController";
+import { ExpressInterfaceAdapter } from "./ExpressInterfaceAdapter";
+import { UserController } from "./interface/controllers/UserController";
 
 const app: express.Express = express();
 app.use(express.json());
@@ -19,8 +20,8 @@ app.listen(3000, () => {
   console.log("Start on port 3000.");
 });
 
-// Controller定義
+// API定義
 app.get("/users", (req: express.Request, res: express.Response) => {
   const userController = new UserController();
-  res.send(userController.get(req));
+  ExpressInterfaceAdapter.call(userController.get, req, res);
 });
