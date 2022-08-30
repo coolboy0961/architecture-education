@@ -6,10 +6,10 @@ import {
 } from "../../ExpressInterfaceAdapter";
 
 export class UserController {
-  public get(request: ControllerRequest): ControllerResponse {
+  public async get(request: ControllerRequest): Promise<ControllerResponse> {
     console.log(request);
     const getUserUsecase = new GetUsers();
-    const users: User[] = getUserUsecase.getUsers();
+    const users: User[] = await getUserUsecase.getUsers();
     const usersResponse: UserResponse[] = [
       users[0].toUserGetResponse(),
       users[1].toUserGetResponse(),

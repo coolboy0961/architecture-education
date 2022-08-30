@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
+import { IHttpClient } from "../interface/gateways/IHttpClient";
 
-export class HttpClient {
+export class HttpClient implements IHttpClient {
   private _axiosInstance: AxiosInstance;
 
   constructor() {
