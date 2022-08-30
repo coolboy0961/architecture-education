@@ -1,5 +1,5 @@
-import { ControllerResponse } from "../../../src/ExpressInterfaceAdapter";
-import { UserController } from "../../../src/interface/controllers/UserController";
+import { ControllerResponse } from "../../../../src/ExpressInterfaceAdapter";
+import { UserController } from "../../../../src/interface/controllers/UserController";
 
 describe("UserController Tests", () => {
   test("normal case", () => {
