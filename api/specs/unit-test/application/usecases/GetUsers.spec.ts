@@ -1,6 +1,6 @@
 import { GetUsers } from "../../../../src/application/usecases/GetUsers";
 import { User } from "../../../../src/domain/entities/User";
-import { UserRepository } from "../../../../src/interface/gateways/UserRepository";
+import { UserExternalApi } from "../../../../src/interface/gateways/UserExternalApi";
 
 describe("GetUsers Usecase Tests", () => {
   test("Normal Case", async () => {
@@ -10,8 +10,8 @@ describe("GetUsers Usecase Tests", () => {
       new User(2, "User2", "user2@test.local"),
       new User(3, "User3", "user3@test.local"),
     ];
-    const userRepositoryMock = jest
-      .spyOn(UserRepository.prototype, "getUsers")
+    const UserExternalApiMock = jest
+      .spyOn(UserExternalApi.prototype, "getUsers")
       .mockResolvedValue([
         new User(1, "User1", "user1@test.local"),
         new User(2, "User2", "user2@test.local"),
@@ -24,6 +24,6 @@ describe("GetUsers Usecase Tests", () => {
 
     // Assert
     expect(actual).toEqual(expected);
-    expect(userRepositoryMock).toHaveBeenCalledTimes(1);
+    expect(UserExternalApiMock).toHaveBeenCalledTimes(1);
   });
 });

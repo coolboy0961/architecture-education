@@ -1,8 +1,8 @@
 import { User } from "../../../../src/domain/entities/User";
 import { HttpClient } from "../../../../src/infrastructure/HttpClient";
-import { UserRepository } from "../../../../src/interface/gateways/UserRepository";
+import { UserExternalApi } from "../../../../src/interface/gateways/UserExternalApi";
 
-describe("UserRepository Tests", () => {
+describe("UserExternalApi Tests", () => {
   test("Normal Case", async () => {
     // Arrange
     const expected: User[] = [
@@ -20,7 +20,7 @@ describe("UserRepository Tests", () => {
       };
     });
     // Act
-    const target = new UserRepository();
+    const target = new UserExternalApi();
     const actual = await target.getUsers();
 
     // Assert

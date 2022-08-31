@@ -1,9 +1,9 @@
-import { IUserRepository } from "../../application/repositories/IUserRepository";
+import { IUserExternalApi } from "../../application/external-apis/IUserExternalApi";
 import { User } from "../../domain/entities/User";
 import { HttpClient } from "../../infrastructure/HttpClient";
 import { IHttpClient } from "./IHttpClient";
 
-export class UserRepository implements IUserRepository {
+export class UserExternalApi implements IUserExternalApi {
   private _httpClient: IHttpClient;
 
   constructor() {
