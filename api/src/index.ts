@@ -23,8 +23,8 @@ const expressInterfaceAdapter = new ExpressInterfaceAdapter();
 const baseUrl = "/api";
 app.get(`${baseUrl}/users`, (req: express.Request, res: express.Response) => {
   const userController = new UserController();
-  const userControllerGet = userController.get.bind(userController);
-  expressInterfaceAdapter.call(userControllerGet, req, res);
+  const userControllerGetFunction = userController.get.bind(userController);
+  expressInterfaceAdapter.call(userControllerGetFunction, req, res);
 });
 
 app.listen(3000, () => {
