@@ -1,18 +1,19 @@
 import express from "express";
 
 export class ExpressInterfaceAdapter {
-  public static call(
+  public async call(
     controllerCallFunction: any,
     req: express.Request,
-    res: express.Response
+    res: express.Response,
   ) {
-    const response: ControllerResponse = controllerCallFunction(
-      ExpressInterfaceAdapter.toControllRequest(req)
+    const response: ControllerResponse = await controllerCallFunction(
+      this.toControllRequest(req)
     );
-    res.status(response.status).send(JSON.stringify(response.body));
+    console.log("response.body:" + JSON.stringify(response.body));
+    res.status(200).send(JSON.stringify(response.body));
   }
 
-  public static toControllRequest(req: express.Request): ControllerRequest {
+  public toControllRequest(req: express.Request): ControllerRequest {
     const controllerRequest: ControllerRequest = {
       headers: req.headers,
       query: req.query,

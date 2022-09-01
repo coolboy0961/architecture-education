@@ -16,13 +16,17 @@ app.use(
   }
 );
 
-app.listen(3000, () => {
-  console.log("Start on port 3000.");
-});
+// ControllerからExpressに依存しないように、専用Adapterを作成
+const expressInterfaceAdapter = new ExpressInterfaceAdapter();
 
 // API定義
 const baseUrl = "/api";
 app.get(`${baseUrl}/users`, (req: express.Request, res: express.Response) => {
   const userController = new UserController();
-  ExpressInterfaceAdapter.call(userController.get, req, res);
+  const userControllerGet = userController.get.bind(userController);
+  expressInterfaceAdapter.call(userControllerGet, req, res);
+});
+
+app.listen(3000, () => {
+  console.log("Start on port 3000.");
 });

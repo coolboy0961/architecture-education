@@ -22,7 +22,6 @@ export class UserController {
     };
     return response;
   }
-
   private toUserGetResponse(user: User): UserResponse {
     return {
       id: user.id,

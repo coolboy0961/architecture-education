@@ -1,5 +1,3 @@
-import { UserResponse } from "../../interface/controllers/UserController";
-
 export class User {
   private _id: number;
   private _name: string;
