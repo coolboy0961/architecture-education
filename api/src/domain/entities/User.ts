@@ -22,12 +22,4 @@ export class User {
   get email(): string {
     return this._email;
   }
-
-  public toUserGetResponse(): UserResponse {
-    return {
-      id: this._id,
-      name: this._name,
-      email: this._email,
-    };
-  }
 }

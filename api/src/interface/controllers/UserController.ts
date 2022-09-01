@@ -11,9 +11,9 @@ export class UserController {
     const getUserUsecase = new GetUsers();
     const users: User[] = await getUserUsecase.getUsers();
     const usersResponse: UserResponse[] = [
-      users[0].toUserGetResponse(),
-      users[1].toUserGetResponse(),
-      users[2].toUserGetResponse(),
+      this.toUserGetResponse(users[0]),
+      this.toUserGetResponse(users[1]),
+      this.toUserGetResponse(users[2]),
     ];
 
     const response: ControllerResponse = {
@@ -21,6 +21,14 @@ export class UserController {
       body: usersResponse,
     };
     return response;
+  }
+
+  private toUserGetResponse(user: User): UserResponse {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
   }
 }
 
