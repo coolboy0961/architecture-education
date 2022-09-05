@@ -1,6 +1,8 @@
 import ServerMock from "mock-http-server";
 
-const server = new ServerMock({ host: "localhost", port: 9000 });
+const host = "localhost";
+const port = 9000;
+const server = new ServerMock({ host, port});
 server.on({
   method: "GET",
   path: "/api/users",
@@ -20,5 +22,5 @@ server.on({
 server.start(callback);
 
 function callback() {
-  console.log("mock server is started.");
+  console.log(`mock server is started on http://${host}:${port}.`);
 }
