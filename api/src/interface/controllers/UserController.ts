@@ -3,7 +3,7 @@ import { User } from "../../domain/entities/User";
 import {
   ControllerRequest,
   ControllerResponse,
-} from "../../ExpressInterfaceAdapter";
+} from "../../../ExpressInterfaceAdapter";
 
 export class UserController {
   public async get(request: ControllerRequest): Promise<ControllerResponse> {

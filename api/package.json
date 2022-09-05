@@ -6,13 +6,14 @@
   "scripts": {
     "test:unit-test": "jest ./specs/unit-test",
     "test:api-test": "jest --runInBand ./specs/api-test",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1"
   },
   "devDependencies": {
@@ -65,6 +66,9 @@
           "pageTitle": "Test Report"
         }
       ]
+    ],
+    "setupFiles": [
+      "./load-env.ts"
     ]
   }
 }

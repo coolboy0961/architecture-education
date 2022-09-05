@@ -6,7 +6,7 @@ export class HttpClient implements IHttpClient {
 
   constructor() {
     this._axiosInstance = axios.create({
-      baseURL: "http://127.0.0.1:9000/api",
+      baseURL: process.env.EXTERNAL_API_BASE_URL,
     });
   }
 

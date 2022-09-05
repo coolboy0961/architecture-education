@@ -24,6 +24,10 @@ describe("user get api tests", () => {
     MockHelper.MockOn({
         method: "GET",
         path: "/api/users",
+        filter: (req) => {
+          console.log("/api/users is called.");
+          return true;
+        },
         reply: {
           status: 200,
           headers: { "content-type": "application/json" },
@@ -38,7 +42,7 @@ describe("user get api tests", () => {
       }
     );
     // Act
-    const actual = await HttpHelper.get("http://localhost:3000/api/users");
+    const actual = await HttpHelper.get("v1/users");
 
     // Assert
     expect(actual).toEqual(expected);

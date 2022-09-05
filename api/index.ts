@@ -1,6 +1,7 @@
+import "./load-env";
 import express from "express";
 import { ExpressInterfaceAdapter } from "./ExpressInterfaceAdapter";
-import { UserController } from "./interface/controllers/UserController";
+import { UserController } from "./src/interface/controllers/UserController";
 
 const app: express.Express = express();
 app.use(express.json());
@@ -21,7 +22,7 @@ const expressInterfaceAdapter = new ExpressInterfaceAdapter();
 
 // API定義
 const baseUrl = "/api";
-app.get(`${baseUrl}/users`, (req: express.Request, res: express.Response) => {
+app.get(`${baseUrl}/v1/users`, (req: express.Request, res: express.Response) => {
   const userController = new UserController();
   const userControllerGetFunction = userController.get.bind(userController);
   expressInterfaceAdapter.call(userControllerGetFunction, req, res);
