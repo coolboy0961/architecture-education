@@ -1,5 +1,5 @@
-import { HttpHelper } from "./helper/HttpHelper";
-import { MockHelper } from "./helper/MockHelper";
+import { HttpHelper } from "../helper/HttpHelper";
+import { MockHelper } from "../helper/MockHelper";
 
 describe("user get api tests", () => {
   beforeAll((done) => {
