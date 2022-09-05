@@ -6,17 +6,20 @@
   "scripts": {
     "test:unit-test": "jest ./specs/unit-test",
     "test:api-test": "jest --runInBand ./specs/api-test",
-    "start": "ts-node index.ts"
+    "start": "ts-node index.ts",
+    "rm:testdb": "rm -f ./specs/helper/testdb"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "better-sqlite3": "^7.6.2",
     "dotenv": "^16.0.2",
     "express": "^4.18.1"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
     "@types/express": "^4.17.13",
     "@types/jest": "^29.0.0",
     "@types/node": "^18.7.14",
@@ -25,6 +28,7 @@
     "jest-html-reporter": "^3.6.0",
     "jest-sonar-reporter": "^2.0.0",
     "mock-http-server": "^1.4.5",
+    "npm-commands": "^1.1.0",
     "ts-jest": "^28.0.8",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.2"
