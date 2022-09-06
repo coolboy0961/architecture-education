@@ -7,12 +7,12 @@ describe("user get api tests", () => {
   });
 
   afterAll((done) => {
-    MockHelper.stop(done)
+    MockHelper.stop(done);
   });
 
   beforeEach(() => {
     MockHelper.ResetMock();
-  })
+  });
 
   test("normal case", async () => {
     // Arrange
@@ -22,29 +22,44 @@ describe("user get api tests", () => {
       { id: 3, name: "User3", email: "user3@test.local" },
     ];
     MockHelper.MockOn({
-        method: "GET",
-        path: "/api/users",
-        filter: (req) => {
-          console.log("/api/users is called.");
-          return true;
-        },
-        reply: {
-          status: 200,
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({
-            users: [
-              { user_id: 1, user_name: "User1", user_email: "user1@test.local" },
-              { user_id: 2, user_name: "User2", user_email: "user2@test.local" },
-              { user_id: 3, user_name: "User3", user_email: "user3@test.local" },
-            ],
-          }),
-        },
-      }
-    );
+      method: "GET",
+      path: "/api/users",
+      filter: (req) => {
+        console.log("/api/users is called.");
+        return true;
+      },
+      reply: {
+        status: 200,
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          users: [
+            { user_id: 1, user_name: "User1", user_email: "user1@test.local" },
+            { user_id: 2, user_name: "User2", user_email: "user2@test.local" },
+            { user_id: 3, user_name: "User3", user_email: "user3@test.local" },
+          ],
+        }),
+      },
+    });
     // Act
     const actual = await HttpHelper.get("v1/users");
 
     // Assert
     expect(actual).toEqual(expected);
+  });
+
+  test("error case", async () => {
+    // Arrange
+    const expected = {
+      code: "SMP000002",
+      message: "外部APIへのアクセスが失敗しました。",
+    };
+    // Act
+    try {
+      await HttpHelper.get("v1/users");
+    } catch (error: any) {
+      const response = error.response;
+      // Assert
+      expect(response.data).toEqual(expected);
+    }
   });
 });

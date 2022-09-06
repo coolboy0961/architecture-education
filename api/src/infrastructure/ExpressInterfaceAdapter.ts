@@ -1,16 +1,37 @@
 import express from "express";
+import { ErrorCodes } from "../exception/ErrorCodes";
 
 export class ExpressInterfaceAdapter {
   public async call(
     controllerCallFunction: any,
     req: express.Request,
-    res: express.Response,
+    res: express.Response
   ) {
-    const response: ControllerResponse = await controllerCallFunction(
-      this.toControllRequest(req)
-    );
-    console.log("response.body:" + JSON.stringify(response.body));
-    res.status(200).send(JSON.stringify(response.body));
+    try {
+      const response: ControllerResponse = await controllerCallFunction(
+        this.toControllRequest(req)
+      );
+      console.debug("response.body:" + JSON.stringify(response.body));
+      res.status(200).send(JSON.stringify(response.body));
+    } catch (error: any) {
+      let errorResponse: ErrorResponse;
+      let status: number;
+      if (!error.code) {
+        status = 500;
+        const unknownError = ErrorCodes.SMP000003();
+        errorResponse = {
+          code: unknownError.code,
+          message: unknownError.message,
+        };
+      } else {
+        status = error.status;
+        errorResponse = {
+          code: error.code,
+          message: error.message,
+        };
+      }
+      res.status(status).send(JSON.stringify(errorResponse));
+    }
   }
 
   public toControllRequest(req: express.Request): ControllerRequest {
@@ -30,6 +51,11 @@ export type ControllerRequest = {
 };
 
 export type ControllerResponse = {
-  status: number
+  status: number;
   body: any;
+};
+
+export type ErrorResponse = {
+  code: string;
+  message: string;
 };
