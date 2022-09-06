@@ -1,6 +1,6 @@
 import { GetUsers } from "../../../../src/application/usecases/GetUsers";
 import { User } from "../../../../src/domain/entities/User";
-import { ControllerResponse } from "../../../../ExpressInterfaceAdapter";
+import { ControllerResponse } from "../../../../src/infrastructure/ExpressInterfaceAdapter";
 import { UserController } from "../../../../src/interface/controllers/UserController";
 
 describe("UserController Tests", () => {

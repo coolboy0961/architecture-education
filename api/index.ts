@@ -1,6 +1,6 @@
 import "./load-env";
 import express from "express";
-import { ExpressInterfaceAdapter } from "./ExpressInterfaceAdapter";
+import { ExpressInterfaceAdapter } from "./src/infrastructure/ExpressInterfaceAdapter";
 import { UserController } from "./src/interface/controllers/UserController";
 
 const app: express.Express = express();
