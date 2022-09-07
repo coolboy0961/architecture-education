@@ -1,4 +1,4 @@
-import { IUserExternalApi } from "../../application/external-apis/IUserExternalApi";
+import { IUserExternalApi } from "../../application/gateways/IUserExternalApi";
 import { User } from "../../domain/entities/User";
 import { HttpClient } from "../../infrastructure/HttpClient";
 import { IHttpClient } from "./IHttpClient";

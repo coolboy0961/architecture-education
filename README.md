@@ -43,20 +43,20 @@ Table of Contents
 │       └── interface
 ├── src # プロダクトコードを保存(Clean Architectureに基づいたディレクトリ構造)
 │   ├── application
-│   │   ├── external-apis
+│   │   ├── gateways # gatewayのインターフェース
 │   │   └── usecases
 │   ├── domain
 │   │   └── entities
 │   ├── exception # 異常系関連クラス
 │   │   ├── CustomError.ts
 │   │   └── ErrorCodes.ts
-│   ├── infrastructure
+│   ├── infrastructure # infrastructureの実体
 │   │   ├── DBClient.ts
 │   │   ├── ExpressInterfaceAdapter.ts
 │   │   └── HttpClient.ts
 │   └── interface
 │       ├── controllers
-│       └── gateways
+│       └── gateways # gatewayの実体とinfrastructureのインターフェース
 ├── test-report.html # Jestのテストレポートファイル
 ├── test-report.xml # Jestのテストレポートファイル
 └── tsconfig.json # Typescriptの設定ファイル

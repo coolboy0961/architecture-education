@@ -1,6 +1,6 @@
 import { User } from "../../domain/entities/User";
 import { UserExternalApi } from "../../interface/gateways/UserExternalApi";
-import { IUserExternalApi } from "../external-apis/IUserExternalApi";
+import { IUserExternalApi } from "../gateways/IUserExternalApi";
 
 export class GetUsers {
   private _UserExternalApi: IUserExternalApi;
