@@ -1,30 +1,29 @@
-# README
-Table of Contents
-- [README](#readme)
-  - [サンプルアプリの全体像](#サンプルアプリの全体像)
-  - [プロジェクト構成](#プロジェクト構成)
-    - [api](#api)
-    - [external-api-mock](#external-api-mock)
-  - [サンプルアプリの実行、テスト方法](#サンプルアプリの実行テスト方法)
-    - [api](#api-1)
-      - [実行準備](#実行準備)
-      - [UT 実行方法](#ut-実行方法)
-      - [Server 実行方法](#server-実行方法)
-      - [動作確認方法](#動作確認方法)
-    - [external-api-mock](#external-api-mock-1)
-      - [実行準備](#実行準備-1)
-      - [Server 実行方法](#server-実行方法-1)
 
-## サンプルアプリの全体像
+Table of Contents
+- [1. サンプルアプリの全体像](#1-サンプルアプリの全体像)
+- [2. プロジェクト構成](#2-プロジェクト構成)
+  - [2.1. api](#21-api)
+  - [2.2. external-api-mock](#22-external-api-mock)
+- [3. サンプルアプリの実行、テスト方法](#3-サンプルアプリの実行テスト方法)
+  - [3.1. api](#31-api)
+    - [3.1.1. 実行準備](#311-実行準備)
+    - [3.1.2. UT 実行方法](#312-ut-実行方法)
+    - [3.1.3. Server 実行方法](#313-server-実行方法)
+    - [3.1.4. 動作確認方法](#314-動作確認方法)
+  - [3.2. external-api-mock](#32-external-api-mock)
+    - [3.2.1. 実行準備](#321-実行準備)
+    - [3.2.2. Server 実行方法](#322-server-実行方法)
+
+## 1. サンプルアプリの全体像
 ![](asset/README.md_2022-09-07-14-50-51.png)
 
-## プロジェクト構成
+## 2. プロジェクト構成
 | プロジェクト      | 概要                                                  |
 | ----------------- | ----------------------------------------------------- |
 | api               | API のアプリケーションプロジェクト                    |
 | external-api-mock | API からさらに外部の API を想定した Mock プロジェクト |
 
-### api
+### 2.1. api
 ```
 ├── coverage # Jestテストのカバレッジ情報
 ├── env # 環境変数
@@ -62,7 +61,7 @@ Table of Contents
 └── tsconfig.json # Typescriptの設定ファイル
 ```
 
-### external-api-mock
+### 2.2. external-api-mock
 ```
 ├── package-lock.json
 ├── package.json
@@ -72,33 +71,33 @@ Table of Contents
     └── mock-http-server.d.ts
 ```
 
-## サンプルアプリの実行、テスト方法
+## 3. サンプルアプリの実行、テスト方法
 
-### api
+### 3.1. api
 
 express をベースとして API Server です。  
 Clean Architecture のサンプル実装となります。
 
-#### 実行準備
+#### 3.1.1. 実行準備
 
 ```
 cd api
 npm ci
 ```
 
-#### UT 実行方法
+#### 3.1.2. UT 実行方法
 
 ```
 npm run test
 ```
 
-#### Server 実行方法
+#### 3.1.3. Server 実行方法
 
 ```
 npm run start
 ```
 
-#### 動作確認方法
+#### 3.1.4. 動作確認方法
 
 ※下記を実行する前に、external-api-mock を実行してください。
 
@@ -107,18 +106,18 @@ curl localhost:3000/api/users
 [{"id":1,"name":"User1","email":"user1@test.local"},{"id":2,"name":"User2","email":"user2@test.local"},{"id":3,"name":"User3","email":"user3@test.local"}]
 ```
 
-### external-api-mock
+### 3.2. external-api-mock
 
 api から呼び出す外部 API の Mock Server です。
 
-#### 実行準備
+#### 3.2.1. 実行準備
 
 ```
 cd api
 npm ci
 ```
 
-#### Server 実行方法
+#### 3.2.2. Server 実行方法
 
 ```
 npm run start
