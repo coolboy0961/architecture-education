@@ -18,6 +18,9 @@ export class DBHelper {
         email TEXT)`).run();
   }
 
+  /**
+   * データベースクリア
+   */
   public static tearDownDB() {
     DBHelper.dbInstance.close();
     npm().arguments(false).run("rm:testdb");
