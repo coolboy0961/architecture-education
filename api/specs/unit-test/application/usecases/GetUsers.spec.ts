@@ -6,6 +6,7 @@ import { User } from "../../../../src/domain/entities/User";
 import { UserExternalApi } from "../../../../src/interface/gateways/UserExternalApi";
 import { Time } from "../../../../src/utils/Time";
 
+// Mock library
 // ライブラリのMockはimportの後に続く必要がある
 jest.mock("uuid", () => {
   return {
@@ -13,6 +14,7 @@ jest.mock("uuid", () => {
   };
 });
 
+// Mock Class method
 jest.mock("../../../../src/utils/Time");
 
 describe("GetUsers Usecase Tests", () => {
