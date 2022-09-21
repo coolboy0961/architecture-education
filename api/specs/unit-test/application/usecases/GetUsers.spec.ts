@@ -84,4 +84,19 @@ describe("GetUsers Usecase Tests", () => {
     // Assert
     expect(actual).toBe(expected);
   });
+
+  test("test call private method", () => {
+    // Arrange
+    const expected = "bbb";
+    jest
+      .spyOn(GetUsers.prototype as any, "privateMethod")
+      .mockReturnValue("bbb");
+
+    // Act
+    const target = new GetUsers() as any;
+    const actual = target.privateMethod();
+
+    // Assert
+    expect(actual).toBe(expected);
+  });
 });
