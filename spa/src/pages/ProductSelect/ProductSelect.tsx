@@ -20,7 +20,6 @@ export default function ProductSelect() {
   // Data Binding
   const dispatch = useDispatch();
   const selectedProductFromState = useSelector((state: RootState) => {
-    console.log("useSelector is called.", JSON.stringify(state));
     return state.store.pages.productSelectPage.selectedProductCode;
   });
   const [selectedProduct, setSelectedProduct] = useState(
@@ -33,7 +32,6 @@ export default function ProductSelect() {
   }
   function onClickToNextPage() {
     // Storeへデータを反映するタイミングをボタンクリック時に指定
-    console.log("onClickToNextPage is called.")
     dispatch(selectProduct(selectedProduct));
   }
 
