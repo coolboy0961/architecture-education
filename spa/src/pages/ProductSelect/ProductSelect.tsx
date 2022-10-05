@@ -1,7 +1,11 @@
 import React from "react";
-import { useState } from "react"
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+import { selectProduct } from "../../store/features/store";
 
 export default function ProductSelect() {
+
   // Data Model
   const products: product[] = [
     {
@@ -11,15 +15,21 @@ export default function ProductSelect() {
     {
       code: "product2",
       name: "商品2",
-    }
+    },
   ];
 
   // Data Binding
-  const [selectedProduct, setSelectedProduct] = useState("product1");
+  const dispatch = useDispatch();
+  const selectedProductFromState = useSelector((state: RootState) => state.store.pages.productSelectPage.selectedProductCode);
+  const [selectedProduct, setSelectedProduct] = useState(selectedProductFromState);
 
   // Event Method
   function onChangeProduct(event: React.ChangeEvent<HTMLInputElement>) {
     setSelectedProduct(event.target.value);
+  }
+  function onClickToNextPage() {
+    // Storeへデータを反映するタイミングをボタンクリック時に指定
+    dispatch(selectProduct(selectedProduct));
   }
 
   // HTML
@@ -41,7 +51,7 @@ export default function ProductSelect() {
           );
         })}
       </div>
-      <button>次へ</button>
+      <button onClick={onClickToNextPage}>次へ</button>
     </>
   );
 }
