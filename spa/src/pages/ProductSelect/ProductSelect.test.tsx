@@ -1,16 +1,31 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 import ProductSelect from "./ProductSelect";
+import StoreFixture from "../../test-utils/fixture";
+import { RootState } from "../../store";
 
 describe("商品選択ページのテスト", () => {
+  const initialState = StoreFixture.initialState();
+  const mockStore = configureStore();
+  let store: any;
+  beforeEach(() => {
+    store = mockStore(initialState);
+  });
   describe("初期表示の要素存在確認", () => {
     test("商品選択画面のタイトルが表示されること", () => {
       // Arrange
+
       const expected = "商品選択画面";
 
       // Act
-      render(<ProductSelect />);
+      render(
+        <Provider store={store}>
+          <ProductSelect />
+        </Provider>
+      );
       const actual = screen.getByRole("heading", {
         name: "商品選択画面",
       }).textContent;
@@ -23,7 +38,11 @@ describe("商品選択ページのテスト", () => {
       // Arrange
 
       // Act
-      render(<ProductSelect />);
+      render(
+        <Provider store={store}>
+          <ProductSelect />
+        </Provider>
+      );
       const actualProduct1Element = screen.getByRole("radio", {
         name: "商品1",
       });
@@ -36,12 +55,33 @@ describe("商品選択ページのテスト", () => {
       expect(actualProduct2Element).toBeInTheDocument();
       expect(actualProduct1Element).toBeChecked();
     });
+    test("初期ステータスでproduct1が選択されている", () => {
+      // Arrange
+      const expectedStateOfProduct = "product1";
+
+      // Act
+      render(
+        <Provider store={store}>
+          <ProductSelect />
+        </Provider>
+      );
+      const actualState: RootState = store.getState();
+
+      // Assert
+      expect(
+        actualState.store.pages.productSelectPage.selectedProductCode
+      ).toBe(expectedStateOfProduct);
+    });
 
     test("次へボタンが存在すること", () => {
       // Arrange
 
       // Act
-      render(<ProductSelect />);
+      render(
+        <Provider store={store}>
+          <ProductSelect />
+        </Provider>
+      );
       const actualNextButton = screen.getByRole("button", {
         name: "次へ",
       });
@@ -58,7 +98,11 @@ describe("商品選択ページのテスト", () => {
       // Arrange
 
       // Act
-      render(<ProductSelect />);
+      render(
+        <Provider store={store}>
+          <ProductSelect />
+        </Provider>
+      );
       const product1Element = screen.getByRole("radio", {
         name: "商品1",
       });
@@ -80,10 +124,30 @@ describe("商品選択ページのテスト", () => {
 
     test("次へのボタンをクリックすると、選択された商品コードがStoreに保存されること", () => {
       // Arrange
+      const expectedAction = {
+        type: "store/selectProduct",
+        payload: "product2",
+      };
 
       // Act
+      render(
+        <Provider store={store}>
+          <ProductSelect />
+        </Provider>
+      );
+      const product2Element = screen.getByRole("radio", {
+        name: "商品2",
+      });
+      const nextButton = screen.getByRole("button", {
+        name: "次へ",
+      });
+      userEvent.click(product2Element);
+      userEvent.click(nextButton);
+      const actualAction = store.getActions()[0];
 
       // Assert
+      expect(product2Element).toBeChecked();
+      expect(actualAction).toEqual(expectedAction);
     });
   });
 });

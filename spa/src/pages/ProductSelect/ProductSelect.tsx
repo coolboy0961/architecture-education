@@ -5,7 +5,6 @@ import { RootState } from "../../store";
 import { selectProduct } from "../../store/features/store";
 
 export default function ProductSelect() {
-
   // Data Model
   const products: product[] = [
     {
@@ -20,8 +19,13 @@ export default function ProductSelect() {
 
   // Data Binding
   const dispatch = useDispatch();
-  const selectedProductFromState = useSelector((state: RootState) => state.store.pages.productSelectPage.selectedProductCode);
-  const [selectedProduct, setSelectedProduct] = useState(selectedProductFromState);
+  const selectedProductFromState = useSelector((state: RootState) => {
+    console.log("useSelector is called.", JSON.stringify(state));
+    return state.store.pages.productSelectPage.selectedProductCode;
+  });
+  const [selectedProduct, setSelectedProduct] = useState(
+    selectedProductFromState
+  );
 
   // Event Method
   function onChangeProduct(event: React.ChangeEvent<HTMLInputElement>) {
@@ -29,6 +33,7 @@ export default function ProductSelect() {
   }
   function onClickToNextPage() {
     // Storeへデータを反映するタイミングをボタンクリック時に指定
+    console.log("onClickToNextPage is called.")
     dispatch(selectProduct(selectedProduct));
   }
 
