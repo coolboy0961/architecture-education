@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import ProductSelect from "./ProductSelect";
 import StoreFixture from "../../test-utils/fixture";
-import { RootState } from "../../store";
 
 describe("商品選択ページのテスト", () => {
   const initialState = StoreFixture.initialState();
