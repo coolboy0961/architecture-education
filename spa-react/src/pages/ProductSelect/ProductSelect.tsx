@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import { selectProduct } from "../../store/features/store";
 
@@ -27,12 +28,14 @@ export default function ProductSelect() {
   );
 
   // Event Method
+  const navigate = useNavigate();
   function onChangeProduct(event: React.ChangeEvent<HTMLInputElement>) {
     setSelectedProduct(event.target.value);
   }
   function onClickToNextPage() {
     // Storeへデータを反映するタイミングをボタンクリック時に指定
     dispatch(selectProduct(selectedProduct));
+    navigate("/customer");
   }
 
   // HTML

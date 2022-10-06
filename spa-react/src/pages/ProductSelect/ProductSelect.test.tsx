@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-debugging-utils */
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -5,6 +6,13 @@ import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import ProductSelect from "./ProductSelect";
 import StoreFixture from "../../test-utils/fixture";
+
+// useNavigate hook をモック
+const mockedNavigator = jest.fn();
+jest.mock("react-router-dom", () => ({
+  ...(jest.requireActual("react-router-dom") as any),
+  useNavigate: () => mockedNavigator,
+}));
 
 describe("商品選択ページのテスト", () => {
   const initialState = StoreFixture.initialState();
@@ -145,6 +153,25 @@ describe("商品選択ページのテスト", () => {
       // Assert
       expect(product2Element).toBeChecked();
       expect(actualAction).toEqual(expectedAction);
+    });
+
+    test("次へボタンをクリックすると、顧客情報入力画面に進むこと", () => {
+      // Arrange
+      const expectedPath = "/customer";
+
+      // Act
+      render(
+        <Provider store={store}>
+          <ProductSelect />
+        </Provider>
+      );
+      const nextButton = screen.getByRole("button", {
+        name: "次へ",
+      });
+      userEvent.click(nextButton);
+
+      // Assert
+      expect(mockedNavigator).toHaveBeenCalledWith(expectedPath);
     });
   });
 });
