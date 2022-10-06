@@ -53,11 +53,9 @@ describe("商品選択ページのテスト", () => {
       // Assert
       expect(actualProduct1Element).toBeInTheDocument();
       expect(actualProduct2Element).toBeInTheDocument();
-      expect(actualProduct1Element).toBeChecked();
     });
     test("初期ステータスでproduct1が選択されている", () => {
       // Arrange
-      const expectedStateOfProduct = "product1";
 
       // Act
       render(
@@ -65,12 +63,12 @@ describe("商品選択ページのテスト", () => {
           <ProductSelect />
         </Provider>
       );
-      const actualState: RootState = store.getState();
+      const actualProduct1Element = screen.getByRole("radio", {
+        name: "商品1",
+      });
 
       // Assert
-      expect(
-        actualState.store.pages.productSelectPage.selectedProductCode
-      ).toBe(expectedStateOfProduct);
+      expect(actualProduct1Element).toBeChecked();
     });
 
     test("次へボタンが存在すること", () => {
