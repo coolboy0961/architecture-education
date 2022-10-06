@@ -72,6 +72,7 @@ describe("Products Componentのテスト", () => {
   describe("動的機能のテスト", () => {
     test("商品1と商品2をそれぞれ選択できること", () => {
       // Arrange
+
       // Act
       render(
         <Provider store={store}>
