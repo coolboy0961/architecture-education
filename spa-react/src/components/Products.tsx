@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { selectProduct } from "../store/features/store";
@@ -24,16 +24,13 @@ export default function Products(props: { products: Product[] }) {
   const selectedProductFromState = useSelector((state: RootState) => {
     return state.store.pages.productSelectPage.selectedProductCode;
   });
-  const [selectedProduct, setSelectProduct] = useState(
-    selectedProductFromState
-  );
 
   // Event Method
   function onChangeProduct(event: React.ChangeEvent<HTMLInputElement>) {
-    setSelectProduct(event.target.value);
     dispatch(selectProduct(event.target.value));
   }
 
+  // HTML
   return (
     <div>
       {products.map((product) => {
@@ -42,7 +39,7 @@ export default function Products(props: { products: Product[] }) {
             <input
               type="radio"
               value={product.code}
-              checked={selectedProduct === product.code}
+              checked={selectedProductFromState === product.code}
               onChange={onChangeProduct}
             />
             {product.name}
