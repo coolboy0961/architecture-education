@@ -3,9 +3,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
-import configureStore from "redux-mock-store";
 import ProductSelect from "./ProductSelect";
-import StoreFixture from "../../test-utils/fixture";
+import { EnhancedStore } from "@reduxjs/toolkit/dist/configureStore";
+import TestUtils from "../../test-utils/utils";
+import { RootState } from "../../store";
 
 // useNavigate hook をモック
 const mockedNavigator = jest.fn();
@@ -15,11 +16,9 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("商品選択ページのテスト", () => {
-  const initialState = StoreFixture.initialState();
-  const mockStore = configureStore();
-  let store: any;
+  let store: EnhancedStore;
   beforeEach(() => {
-    store = mockStore(initialState);
+    store = TestUtils.createTestStore();
   });
   describe("初期表示の要素存在確認", () => {
     test("商品選択画面のタイトルが表示されること", () => {
@@ -129,10 +128,7 @@ describe("商品選択ページのテスト", () => {
 
     test("次へのボタンをクリックすると、選択された商品コードがStoreに保存されること", () => {
       // Arrange
-      const expectedAction = {
-        type: "store/selectProduct",
-        payload: "product2",
-      };
+      const expected = "product2";
 
       // Act
       render(
@@ -148,11 +144,13 @@ describe("商品選択ページのテスト", () => {
       });
       userEvent.click(product2Element);
       userEvent.click(nextButton);
-      const actualAction = store.getActions()[0];
+      const actualState: RootState = store.getState();
 
       // Assert
       expect(product2Element).toBeChecked();
-      expect(actualAction).toEqual(expectedAction);
+      expect(
+        actualState.store.pages.productSelectPage.selectedProductCode
+      ).toBe(expected);
     });
 
     test("次へボタンをクリックすると、顧客情報入力画面に進むこと", () => {
