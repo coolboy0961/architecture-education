@@ -8,6 +8,10 @@ export default function Customer() {
   return (
     <>
       <h1>顧客情報入力画面</h1>
+      <label>
+        氏名：
+        <input type="text" data-testid="name-input-text"></input>
+      </label>
     </>
   )
 }

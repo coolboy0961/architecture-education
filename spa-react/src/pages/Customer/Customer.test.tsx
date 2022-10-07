@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { ByRoleOptions, render, screen } from "@testing-library/react";
 import Customer from "./Customer";
 
 describe("顧客情報入力ページのテスト", () => {
@@ -16,6 +16,24 @@ describe("顧客情報入力ページのテスト", () => {
 
       // Assert
       expect(actual).toBe(expected);
+    });
+    test("氏名の入力欄とラベルが存在すること", () => {
+      // Arrange
+      const expectedNameTextBoxTestId = "name-input-text";
+      const expectedNameLabelText = "氏名：";
+
+      // Act
+      render(<Customer />);
+      const actualNameInputElement = screen.getByTestId(
+        expectedNameTextBoxTestId
+      );
+      const actualNameLabelElement = screen.getByLabelText(
+        expectedNameLabelText
+      );
+
+      // Assert
+      expect(actualNameInputElement).toBeInTheDocument();
+      expect(actualNameLabelElement).toBeInTheDocument();
     });
   });
 });
