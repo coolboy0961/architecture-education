@@ -35,5 +35,53 @@ describe("顧客情報入力ページのテスト", () => {
       expect(actualNameInputElement).toBeInTheDocument();
       expect(actualNameLabelElement).toBeInTheDocument();
     });
+    test("性別のプルダウンリストが存在して、「---」、「男」、「女」が入っていること", () => {
+      // Arrange
+      const expectedSexLabel = "性別：";
+      const expectedSexSelectTestId = "sex-pull-down-list";
+      const expectedSexDefaultRole = {
+        role: "option",
+        option: {
+          name: "---",
+        } as ByRoleOptions,
+      };
+      const expectedSexMaleRole = {
+        role: "option",
+        option: {
+          name: "男",
+        } as ByRoleOptions,
+      };
+
+      const expectedSexFemaleRole = {
+        role: "option",
+        option: {
+          name: "女",
+        },
+      };
+
+      // Act
+      render(<Customer />);
+      const actualSexLabelElement = screen.getByLabelText(expectedSexLabel);
+      const actualSexSelectElement = screen.getByTestId(expectedSexSelectTestId);
+      const actualSexDefaultOptionElement = screen.getByRole(
+        expectedSexDefaultRole.role,
+        expectedSexDefaultRole.option
+      );
+      const actualSexMaleOptionElement = screen.getByRole(
+        expectedSexMaleRole.role,
+        expectedSexMaleRole.option
+      );
+      const actualSexFemaleOptionElement = screen.getByRole(
+        expectedSexFemaleRole.role,
+        expectedSexFemaleRole.option
+      );
+
+      // Assert
+      expect(actualSexLabelElement).toBeInTheDocument();
+      expect(actualSexSelectElement).toBeInTheDocument();
+      expect(actualSexDefaultOptionElement).toBeInTheDocument();
+      expect(actualSexMaleOptionElement).toBeInTheDocument();
+      expect(actualSexFemaleOptionElement).toBeInTheDocument();
+    });
   });
 });
