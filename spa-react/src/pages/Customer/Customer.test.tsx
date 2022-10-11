@@ -1,6 +1,8 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import Customer from "./Customer";
+import userEvent from "@testing-library/user-event";
+import { Bff } from "../../utils/bff";
 
 describe("顧客情報入力ページのテスト", () => {
   describe("初期表示の要素存在確認", () => {
@@ -61,7 +63,7 @@ describe("顧客情報入力ページのテスト", () => {
       const postcodeLabelElement = screen.getByLabelText("郵便番号：");
       const postcodeInputElement = screen.getByTestId("postcode-input-text");
       const postcodeCheckButtonElement = screen.getByRole("button", {
-        name: "チェック",
+        name: "住所入力",
       });
       const address1LabelElement = screen.getByLabelText("住所1：");
       const address1InputElement = screen.getByTestId("address1-input-text");
@@ -92,19 +94,50 @@ describe("顧客情報入力ページのテスト", () => {
     });
   });
   describe("動的機能のテスト", () => {
-    test("郵便番号を入れて、チェックボタンをクリックすると、住所が「住所1」に入ること", () => {
+    test("郵便番号入力欄に入力した情報はvalueにDataBindingされていること", () => {
       // Arrange
+      const expected = "1840015";
 
       // Act
+      render(<Customer />);
+      const postcodeInputElement = screen.getByTestId("postcode-input-text");
+      userEvent.type(postcodeInputElement, "1840015");
+      const actual = postcodeInputElement.getAttribute("value");
 
       // Assert
-    })
+      expect(actual).toBe(expected);
+    });
+    test("郵便番号を入れて、チェックボタンをクリックすると、住所が「住所1」に入ること", async () => {
+      // Arrange
+      const getAddressMock = jest
+        .spyOn(Bff.prototype, "getAddress")
+        .mockResolvedValue({
+          address: "東京都XXXXXX",
+        });
+      const expected = "東京都XXXXXX";
+
+      // Act
+      render(<Customer />);
+      const postcodeInputElement = screen.getByTestId("postcode-input-text");
+      userEvent.type(postcodeInputElement, "1840015");
+      const addressInputButtonElement = screen.getByRole("button", {
+        name: "住所入力",
+      });
+      userEvent.click(addressInputButtonElement);
+
+      // Assert
+      expect(getAddressMock).toBeCalledWith("1840015");
+      await waitFor(() => {
+        const actual = screen
+          .getByTestId("address1-input-text")
+          .getAttribute("value");
+        expect(actual).toBe(expected);
+      });
+    });
     test("次へボタンをクリックすると、入力された情報がStoreに保存されること", () => {
       // Arrange
-
       // Act
-
       // Assert
-    })
-  })
+    });
+  });
 });

@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import { bff } from "../../utils/bff";
 
 export default function Customer() {
   // Data Model
   // Data Binding
+  const [postcode, setPostcode] = useState("");
+  const [address1, setAddress1] = useState("");
   // Event Method
+  function onChangePostcode(event: any) {
+    setPostcode(event.target.value);
+  }
+  function onChangeAddress1(event: any) {
+    setAddress1(event.target.value);
+  }
+  async function onClickAddressInput(event: any) {
+    const response = await bff.getAddress(postcode);
+    const address = response.address;
+    setAddress1(address);
+  }
   // HTML
   return (
     <>
@@ -26,13 +40,23 @@ export default function Customer() {
         <br />
         <label>
           郵便番号：
-          <input type="text" data-testid="postcode-input-text" />
+          <input
+            type="text"
+            data-testid="postcode-input-text"
+            value={postcode}
+            onChange={onChangePostcode}
+          />
         </label>
-        <button>チェック</button>
+        <button onClick={onClickAddressInput}>住所入力</button>
         <br />
         <label>
           住所1：
-          <input type="text" data-testid="address1-input-text" />
+          <input
+            type="text"
+            data-testid="address1-input-text"
+            value={address1}
+            onChange={onChangeAddress1}
+          />
         </label>
         <br />
         <label>
