@@ -1,6 +1,4 @@
-type AddressResponse = {
-  address: string
-}
+import axios, { AxiosInstance } from "axios";
 
 interface IBff {
   /**
@@ -10,9 +8,18 @@ interface IBff {
 }
 
 export class Bff implements IBff {
+  private _axiosInstance: AxiosInstance;
+  constructor() {
+    this._axiosInstance = axios.create();
+  }
   async getAddress(postcode: string): Promise<AddressResponse> {
-    throw new Error("Method not implemented.");
+    const response = await this._axiosInstance.get("/api/v1/address");
+    return response.data;
   }
 }
 
 export const bff = new Bff();
+
+type AddressResponse = {
+  address: string;
+};
