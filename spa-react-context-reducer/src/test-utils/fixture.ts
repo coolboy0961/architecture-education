@@ -20,22 +20,21 @@ export default class StoreFixture {
     };
   }
 
-    /**
+  /**
    * product2が選択されている状態のStateオブジェクトを返す
-   * @returns 初期状態のState
    */
-     static product2SelectedStore(): Store {
-      return {
-        user: {
-          name: "",
-          address: "",
-          age: 0,
+  static product2SelectedStore(): Store {
+    return {
+      user: {
+        name: "",
+        address: "",
+        age: 0,
+      },
+      pages: {
+        productSelectPage: {
+          selectedProductCode: "product2",
         },
-        pages: {
-          productSelectPage: {
-            selectedProductCode: "product2",
-          },
-        },
-      };
-    }
+      },
+    };
+  }
 }

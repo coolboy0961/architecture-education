@@ -22,6 +22,9 @@ export default class StoreFixture {
     };
   }
 
+  /**
+   * product2が選択されている状態のStateオブジェクトを返す
+   */
   static product2SelectedState(): RootState {
     return {
       store: {
