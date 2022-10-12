@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import Customer from "./Customer";
 import userEvent from "@testing-library/user-event";
-import { Bff } from "../../utils/bff";
+import Address from "../../apis/address";
 
 describe("顧客情報入力ページのテスト", () => {
   describe("初期表示の要素存在確認", () => {
@@ -110,7 +110,7 @@ describe("顧客情報入力ページのテスト", () => {
     test("郵便番号を入れて、チェックボタンをクリックすると、住所が「住所1」に入ること", async () => {
       // Arrange
       const getAddressMock = jest
-        .spyOn(Bff.prototype, "getAddress")
+        .spyOn(Address.prototype, "getAddress")
         .mockResolvedValue({
           address: "東京都XXXXXX",
         });

@@ -1,9 +1,11 @@
 import MockAdapter from "axios-mock-adapter";
-import { bff } from "./bff";
+import { axiosInstance } from "./axios-instance";
+import Address from "./address";
 
-const axiosMock = new MockAdapter((bff as any)._axiosInstance);
 
-describe("bff utilのテスト", () => {
+const axiosMock = new MockAdapter(axiosInstance);
+
+describe("address apiのテスト", () => {
   beforeEach(() => {
     // axiosMockに登録したMockをクリア
     axiosMock.reset();
@@ -16,7 +18,8 @@ describe("bff utilのテスト", () => {
     const expected = "東京都XXXXXX";
 
     // Act
-    const response = await bff.getAddress("1840015");
+    const target = new Address();
+    const response = await target.getAddress("1840015");
     const actual = response.address;
 
     // Assert

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { bff } from "../../utils/bff";
+import { apis } from "../../apis/apis";
 
 export default function Customer() {
   // Data Model
@@ -14,7 +14,7 @@ export default function Customer() {
     setAddress1(event.target.value);
   }
   async function onClickAddressInput(event: any) {
-    const response = await bff.getAddress(postcode);
+    const response = await apis.address.getAddress(postcode);
     const address = response.address;
     setAddress1(address);
   }
