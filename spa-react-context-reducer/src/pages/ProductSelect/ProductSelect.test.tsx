@@ -2,11 +2,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Provider } from "react-redux";
 import ProductSelect from "./ProductSelect";
-import { EnhancedStore } from "@reduxjs/toolkit/dist/configureStore";
-import TestUtils from "../../test-utils/utils";
-import { RootState } from "../../store";
+import { GlobalContextProvider } from "../../contexts/GlobalContext";
+import { currentStore } from "../../contexts/GlobalContext";
 
 // useNavigate hook をモック
 const mockedNavigator = jest.fn();
@@ -16,10 +14,6 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("商品選択ページのテスト", () => {
-  let store: EnhancedStore;
-  beforeEach(() => {
-    store = TestUtils.createTestStore();
-  });
   describe("初期表示の要素存在確認", () => {
     test("商品選択画面のタイトルが表示されること", () => {
       // Arrange
@@ -28,9 +22,9 @@ describe("商品選択ページのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <ProductSelect />
-        </Provider>
+        </GlobalContextProvider>
       );
       const actual = screen.getByRole("heading", {
         name: "商品選択画面",
@@ -45,9 +39,9 @@ describe("商品選択ページのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <ProductSelect />
-        </Provider>
+        </GlobalContextProvider>
       );
       const actualProduct1Element = screen.getByRole("radio", {
         name: "商品1",
@@ -65,9 +59,9 @@ describe("商品選択ページのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <ProductSelect />
-        </Provider>
+        </GlobalContextProvider>
       );
       const actualProduct1Element = screen.getByRole("radio", {
         name: "商品1",
@@ -82,9 +76,9 @@ describe("商品選択ページのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <ProductSelect />
-        </Provider>
+        </GlobalContextProvider>
       );
       const actualNextButton = screen.getByRole("button", {
         name: "次へ",
@@ -103,9 +97,9 @@ describe("商品選択ページのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <ProductSelect />
-        </Provider>
+        </GlobalContextProvider>
       );
       const product1Element = screen.getByRole("radio", {
         name: "商品1",
@@ -132,9 +126,9 @@ describe("商品選択ページのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <ProductSelect />
-        </Provider>
+        </GlobalContextProvider>
       );
       const product2Element = screen.getByRole("radio", {
         name: "商品2",
@@ -144,13 +138,13 @@ describe("商品選択ページのテスト", () => {
       });
       userEvent.click(product2Element);
       userEvent.click(nextButton);
-      const actualState: RootState = store.getState();
+      const actualState = currentStore;
 
       // Assert
       expect(product2Element).toBeChecked();
-      expect(
-        actualState.store.pages.productSelectPage.selectedProductCode
-      ).toBe(expected);
+      expect(actualState.pages.productSelectPage.selectedProductCode).toBe(
+        expected
+      );
     });
 
     test("次へボタンをクリックすると、顧客情報入力画面に進むこと", () => {
@@ -159,9 +153,9 @@ describe("商品選択ページのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <ProductSelect />
-        </Provider>
+        </GlobalContextProvider>
       );
       const nextButton = screen.getByRole("button", {
         name: "次へ",

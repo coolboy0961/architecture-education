@@ -11,8 +11,8 @@ export default class TestUtils {
   }
 
   static createTestStore(mockState?: RootState) {
-    if(!mockState) {
-      mockState = StoreFixture.initialState();
+    if (!mockState) {
+      mockState = StoreFixture.initialStore();
     }
     return configureStore({
       reducer: {

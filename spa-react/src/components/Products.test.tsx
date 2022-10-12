@@ -5,6 +5,7 @@ import userEvent from "@testing-library/user-event";
 import TestUtils from "../test-utils/utils";
 import Products from "./Products";
 import { EnhancedStore } from "@reduxjs/toolkit/dist/configureStore";
+import StoreFixture from "../test-utils/fixture";
 
 describe("Products Componentのテスト", () => {
   let store: EnhancedStore;
@@ -23,6 +24,24 @@ describe("Products Componentのテスト", () => {
       );
       const actualProduct1Element = screen.getByRole("radio", {
         name: "商品1",
+      });
+
+      // Assert
+      expect(actualProduct1Element).toBeChecked();
+    });
+
+    test("product2が選択されているステータスの場合、画面上もproduct2が選択されている", () => {
+      // Arrange
+      store = TestUtils.createTestStore(StoreFixture.product2SelectedState());
+
+      // Act
+      render(
+        <Provider store={store}>
+          <Products products={[]} />
+        </Provider>
+      );
+      const actualProduct1Element = screen.getByRole("radio", {
+        name: "商品2",
       });
 
       // Assert

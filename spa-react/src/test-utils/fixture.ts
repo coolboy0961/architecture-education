@@ -21,4 +21,21 @@ export default class StoreFixture {
       },
     };
   }
+
+  static product2SelectedState(): RootState {
+    return {
+      store: {
+        user: {
+          name: "",
+          address: "",
+          age: 0,
+        },
+        pages: {
+          productSelectPage: {
+            selectedProductCode: "product2",
+          },
+        },
+      },
+    };
+  }
 }

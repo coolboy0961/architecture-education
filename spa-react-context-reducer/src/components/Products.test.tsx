@@ -1,15 +1,19 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
 import userEvent from "@testing-library/user-event";
-import TestUtils from "../test-utils/utils";
 import Products from "./Products";
-import { EnhancedStore } from "@reduxjs/toolkit/dist/configureStore";
+import { GlobalContextProvider } from "../contexts/GlobalContext";
+import StoreUtils from "../contexts/GlobalContext/StoreUtils";
+import StoreFixture from "../test-utils/fixture";
 
 describe("Products Componentのテスト", () => {
-  let store: EnhancedStore;
   beforeEach(() => {
-    store = TestUtils.createTestStore();
+    jest
+      .spyOn(StoreUtils, "initStore")
+      .mockReturnValue(StoreFixture.initialStore());
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
   describe("初期表示の要素存在確認", () => {
     test("初期ステータスでproduct1が選択されている", () => {
@@ -17,12 +21,32 @@ describe("Products Componentのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <Products products={[]} />
-        </Provider>
+        </GlobalContextProvider>
       );
       const actualProduct1Element = screen.getByRole("radio", {
         name: "商品1",
+      });
+
+      // Assert
+      expect(actualProduct1Element).toBeChecked();
+    });
+
+    test("product2が選択されているステータスの場合、画面上もproduct2が選択されている", () => {
+      // Arrange
+      jest
+        .spyOn(StoreUtils, "initStore")
+        .mockReturnValue(StoreFixture.product2SelectedStore());
+
+      // Act
+      render(
+        <GlobalContextProvider>
+          <Products products={[]} />
+        </GlobalContextProvider>
+      );
+      const actualProduct1Element = screen.getByRole("radio", {
+        name: "商品2",
       });
 
       // Assert
@@ -48,9 +72,9 @@ describe("Products Componentのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <Products products={products} />
-        </Provider>
+        </GlobalContextProvider>
       );
       const actualProduct1Element = screen.getByRole("radio", {
         name: "商品1",
@@ -75,9 +99,9 @@ describe("Products Componentのテスト", () => {
 
       // Act
       render(
-        <Provider store={store}>
+        <GlobalContextProvider>
           <Products products={[]} />
-        </Provider>
+        </GlobalContextProvider>
       );
       const product1Element = screen.getByRole("radio", {
         name: "商品1",

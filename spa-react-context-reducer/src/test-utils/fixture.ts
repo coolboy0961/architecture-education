@@ -1,13 +1,31 @@
-import { RootState } from "../store";
+import { Store } from "../contexts/GlobalContext";
 
 export default class StoreFixture {
   /**
    * 初期状態のStateオブジェクトを返す
    * @returns 初期状態のState
    */
-  static initialState(): RootState {
+  static initialStore(): Store {
     return {
-      store: {
+      user: {
+        name: "",
+        address: "",
+        age: 0,
+      },
+      pages: {
+        productSelectPage: {
+          selectedProductCode: "product1",
+        },
+      },
+    };
+  }
+
+    /**
+   * product2が選択されている状態のStateオブジェクトを返す
+   * @returns 初期状態のState
+   */
+     static product2SelectedStore(): Store {
+      return {
         user: {
           name: "",
           address: "",
@@ -15,10 +33,9 @@ export default class StoreFixture {
         },
         pages: {
           productSelectPage: {
-            selectedProductCode: "product1",
+            selectedProductCode: "product2",
           },
         },
-      },
-    };
-  }
+      };
+    }
 }

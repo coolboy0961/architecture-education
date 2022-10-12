@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import { globalReducer } from "./reducers";
+import StoreUtils from "./StoreUtils";
 
 export type GlobalContextType = {
   store: Store;
@@ -7,7 +8,7 @@ export type GlobalContextType = {
 };
 
 const GlobalContext = createContext<GlobalContextType>({
-  store: initStore(),
+  store: StoreUtils.initStore(),
   selectProduct: () => {},
 });
 
@@ -18,8 +19,16 @@ interface GlobalContextProviderProps {
   children?: React.ReactNode;
 }
 
-const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
-  const [store, dispatch] = useReducer(globalReducer, initStore());
+/**
+ * Test only!!
+ * Test時に現状の状態を取得する
+ */
+export let currentStore: Store;
+export const GlobalContextProvider = ({
+  children,
+}: GlobalContextProviderProps) => {
+  const [store, dispatch] = useReducer(globalReducer, StoreUtils.initStore());
+  currentStore = store;
   // 商品選択
   function selectProduct(productCode: string) {
     dispatch({
@@ -38,21 +47,6 @@ const GlobalContextProvider = ({ children }: GlobalContextProviderProps) => {
     </GlobalContext.Provider>
   );
 };
-
-function initStore() {
-  return {
-    user: {
-      name: "",
-      address: "",
-      age: 0,
-    },
-    pages: {
-      productSelectPage: {
-        selectedProductCode: "product1",
-      },
-    },
-  } as Store;
-}
 
 export type Store = {
   user: User;

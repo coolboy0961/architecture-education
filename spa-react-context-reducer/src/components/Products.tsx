@@ -1,7 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
-import { selectProduct } from "../store/features/store";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 export default function Products(props: { products: Product[] }) {
   // Data Model
@@ -20,14 +18,12 @@ export default function Products(props: { products: Product[] }) {
   }
 
   // Data Binding
-  const dispatch = useDispatch();
-  const selectedProductFromState = useSelector((state: RootState) => {
-    return state.store.pages.productSelectPage.selectedProductCode;
-  });
+  const { store, selectProduct } = useGlobalContext();
+  const selectedProductFromState = store.pages.productSelectPage.selectedProductCode;
 
   // Event Method
   function onChangeProduct(event: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(selectProduct(event.target.value));
+    selectProduct(event.target.value);
   }
 
   // HTML
