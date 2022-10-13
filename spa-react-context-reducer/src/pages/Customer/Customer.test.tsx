@@ -1,8 +1,10 @@
-import React from "react";
+import MockAdapter from "axios-mock-adapter";
+import { axiosInstance } from "../../apis/axios-instance";
 import { render, screen, waitFor } from "@testing-library/react";
 import Customer from "./Customer";
 import userEvent from "@testing-library/user-event";
-import Address from "../../apis/address";
+
+const axiosMock = new MockAdapter(axiosInstance);
 
 describe("顧客情報入力ページのテスト", () => {
   describe("初期表示の要素存在確認", () => {
@@ -94,6 +96,9 @@ describe("顧客情報入力ページのテスト", () => {
     });
   });
   describe("動的機能のテスト", () => {
+    beforeEach(() => {
+      axiosMock.reset();
+    })
     test("氏名の入力欄に入力したデータはvalueにBindingされていること", () => {
       // Arrange
       const expected = "React太郎";
@@ -143,11 +148,9 @@ describe("顧客情報入力ページのテスト", () => {
     });
     test("郵便番号を入れて、チェックボタンをクリックすると、住所が「住所1」に入ること", async () => {
       // Arrange
-      const getAddressMock = jest
-        .spyOn(Address.prototype, "getAddress")
-        .mockResolvedValue({
-          address: "東京都XXXXXX",
-        });
+      axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
+        address: "東京都XXXXXX",
+      });
       const expected = "東京都XXXXXX";
 
       // Act
@@ -160,7 +163,6 @@ describe("顧客情報入力ページのテスト", () => {
       userEvent.click(addressInputButtonElement);
 
       // Assert
-      expect(getAddressMock).toBeCalledWith("1840015");
       await waitFor(() => {
         const actual = screen
           .getByTestId("address1-input-text")

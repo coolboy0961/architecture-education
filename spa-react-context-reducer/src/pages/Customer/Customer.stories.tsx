@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ComponentMeta } from "@storybook/react";
 import { GlobalContextProvider } from "../../contexts/GlobalContext";
 import { MemoryRouter } from "react-router-dom";

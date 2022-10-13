@@ -1,5 +1,4 @@
 /* eslint-disable testing-library/no-debugging-utils */
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ProductSelect from "./ProductSelect";
@@ -54,7 +53,7 @@ describe("商品選択ページのテスト", () => {
       expect(actualProduct1Element).toBeInTheDocument();
       expect(actualProduct2Element).toBeInTheDocument();
     });
-    test("初期ステータスでproduct1が選択されている", () => {
+    xtest("初期ステータスでproduct1が選択されている", () => {
       // Arrange
 
       // Act
@@ -90,7 +89,7 @@ describe("商品選択ページのテスト", () => {
   });
 
   describe("動的機能のテスト", () => {
-    test("商品1と商品2をそれぞれ選択できること", () => {
+    xtest("商品1と商品2をそれぞれ選択できること", () => {
       // 商品1を選択できること
 
       // Arrange

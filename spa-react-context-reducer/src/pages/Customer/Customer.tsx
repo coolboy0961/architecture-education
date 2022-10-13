@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { apis } from "../../apis/apis";
 
 export default function Customer() {
@@ -10,7 +10,7 @@ export default function Customer() {
   ];
   // Data Binding
   const [name, setName] = useState("");
-  const [sex, setSex] = useState("---");
+  const [sex, setSex] = useState("");
   const [postcode, setPostcode] = useState("");
   const [address1, setAddress1] = useState("");
   // Event Method

@@ -1,4 +1,3 @@
-import React from "react";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
 export default function Products(props: { products: Product[] }) {
