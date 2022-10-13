@@ -94,7 +94,41 @@ describe("顧客情報入力ページのテスト", () => {
     });
   });
   describe("動的機能のテスト", () => {
-    test("郵便番号入力欄に入力した情報はvalueにDataBindingされていること", () => {
+    test("氏名の入力欄に入力したデータはvalueにBindingされていること", () => {
+      // Arrange
+      const expected = "React太郎";
+
+      // Act
+      render(<Customer />);
+      const nameInputElement = screen.getByTestId("name-input-text");
+      userEvent.type(nameInputElement, expected);
+      const actual = nameInputElement.getAttribute("value");
+
+      // Assert
+      expect(actual).toBe(expected);
+    });
+    test.each`
+      sexValue    | expected
+      ${"---"}    | ${""}
+      ${"male"}   | ${"male"}
+      ${"female"} | ${"female"}
+    `(
+      "性別のプルダウンリストで[$sexValue]を選択してSelectのvalueにBindingされていること",
+      ({ sexValue, expected }) => {
+        // Arrange
+
+        // Act
+        render(<Customer />);
+        const sexSelectElement = screen.getByRole("combobox", {
+          name: "性別：",
+        });
+        userEvent.selectOptions(sexSelectElement, sexValue);
+
+        // Assert
+        expect(sexSelectElement).toHaveValue(expected);
+      }
+    );
+    test("郵便番号入力欄に入力したデータはvalueにBindingされていること", () => {
       // Arrange
       const expected = "1840015";
 

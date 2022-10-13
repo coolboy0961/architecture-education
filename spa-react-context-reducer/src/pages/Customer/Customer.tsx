@@ -3,10 +3,23 @@ import { apis } from "../../apis/apis";
 
 export default function Customer() {
   // Data Model
+  const sexOptions = [
+    { value: "", label: "---" },
+    { value: "male", label: "男" },
+    { value: "female", label: "女" },
+  ];
   // Data Binding
+  const [name, setName] = useState("");
+  const [sex, setSex] = useState("---");
   const [postcode, setPostcode] = useState("");
   const [address1, setAddress1] = useState("");
   // Event Method
+  function onChangeName(event: any) {
+    setName(event.target.value);
+  }
+  function onChangeSex(event: any) {
+    setSex(event.target.value);
+  }
   function onChangePostcode(event: any) {
     setPostcode(event.target.value);
   }
@@ -24,15 +37,28 @@ export default function Customer() {
       <h1>顧客情報入力画面</h1>
       <label>
         氏名：
-        <input type="text" data-testid="name-input-text"></input>
+        <input
+          type="text"
+          data-testid="name-input-text"
+          value={name}
+          onChange={onChangeName}
+        ></input>
       </label>
       <br />
       <label>
         性別：
-        <select data-testid="sex-pull-down-list">
-          <option value="">---</option>
-          <option value="male">男</option>
-          <option value="female">女</option>
+        <select
+          data-testid="sex-pull-down-list"
+          value={sex}
+          onChange={onChangeSex}
+        >
+          {sexOptions.map((option) => {
+            return (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            );
+          })}
         </select>
       </label>
       <div>
