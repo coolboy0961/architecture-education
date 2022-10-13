@@ -1,4 +1,4 @@
-import { Store } from "../contexts/GlobalContext";
+import { Store } from "../contexts/GlobalContext/types";
 
 export default class StoreFixture {
   /**

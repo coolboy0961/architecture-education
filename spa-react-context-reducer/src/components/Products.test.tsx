@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import Products from "./Products";
 import { GlobalContextProvider } from "../contexts/GlobalContext";
 import StoreUtils from "../contexts/GlobalContext/StoreUtils";
-import StoreFixture from "../test-utils/fixture";
+import StoreFixture from "../test-utils/StoreFixture";
 
 describe("Products Componentのテスト", () => {
   beforeEach(() => {

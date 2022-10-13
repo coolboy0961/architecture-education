@@ -1,11 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { globalReducer } from "./reducers";
 import StoreUtils from "./StoreUtils";
-
-export type GlobalContextType = {
-  store: Store;
-  selectProduct: (productCode: string) => void;
-};
+import { GlobalContextType, Store } from "./types";
 
 const GlobalContext = createContext<GlobalContextType>({
   store: StoreUtils.initStore(),
@@ -46,23 +42,4 @@ export const GlobalContextProvider = ({
       {children}
     </GlobalContext.Provider>
   );
-};
-
-export type Store = {
-  user: User;
-  pages: Pages;
-};
-
-export type User = {
-  name: string;
-  age: number;
-  address: string;
-};
-
-export type Pages = {
-  productSelectPage: ProductSelectPage;
-};
-
-export type ProductSelectPage = {
-  selectedProductCode: string;
 };

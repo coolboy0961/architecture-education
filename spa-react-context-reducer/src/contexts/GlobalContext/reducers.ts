@@ -1,4 +1,4 @@
-import { Store } from ".";
+import { Store } from "./types";
 
 export const SELECT_PRODUCT = "SELECT_PRODUCT";
 
