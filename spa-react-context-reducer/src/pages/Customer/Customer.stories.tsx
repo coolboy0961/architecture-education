@@ -11,8 +11,8 @@ export default {
 } as ComponentMeta<typeof Customer>;
 
 export const Default = () => {
-  const mock = (apiMock: MockAdapter) => {
-    apiMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
+  const mock = (axiosMock: MockAdapter) => {
+    axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
       address: "東京都XXXXXX",
     });
   };
