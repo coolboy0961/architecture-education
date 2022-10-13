@@ -6,7 +6,7 @@ export default class Address {
    * BFF の GET api/v1/address APIを呼び出すメソッド
    */
   async getAddress(postcode: string): Promise<AddressResponse> {
-    const response = await axiosInstance.get("/api/v1/address");
+    const response = await axiosInstance.get(`/api/v1/address?postcode=${postcode}`);
     return response.data;
   }
 }

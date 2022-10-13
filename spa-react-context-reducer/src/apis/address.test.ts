@@ -12,7 +12,7 @@ describe("address apiのテスト", () => {
   });
   test("address apiから住所を取得できること", async () => {
     // Arrange
-    axiosMock.onGet("/api/v1/address").reply(200, {
+    axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
       address: "東京都XXXXXX",
     });
     const expected = "東京都XXXXXX";
