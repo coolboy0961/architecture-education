@@ -8,7 +8,7 @@ type GlobalReducerAction = {
 };
 
 /**
- * 商品追加アクション
+ * 商品選択のReducer
  * @param productCode 商品コード
  * @param state 現在の状態
  * @returns 次の状態

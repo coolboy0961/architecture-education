@@ -25,7 +25,10 @@ export const GlobalContextProvider = ({
 }: GlobalContextProviderProps) => {
   const [store, dispatch] = useReducer(globalReducer, StoreUtils.initStore());
   currentStore = store;
-  // 商品選択
+  /**
+   * 商品選択のアクション
+   * @param productCode プロダクトコード
+   */
   function selectProduct(productCode: string) {
     dispatch({
       type: "SELECT_PRODUCT",
