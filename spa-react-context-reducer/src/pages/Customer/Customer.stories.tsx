@@ -12,38 +12,32 @@ export default {
   component: Customer,
 } as ComponentMeta<typeof Customer>;
 
+const DefaultDOM = (mock: (axiosMock: MockAdapter) => void) => (
+  <GlobalContextProvider>
+    <MemoryRouter>
+      <AxiosMock mock={mock}>
+        <Customer />
+      </AxiosMock>
+    </MemoryRouter>
+  </GlobalContextProvider>
+);
+
 export const Default = () => {
   const mock = (axiosMock: MockAdapter) => {
     axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
-      address: "東京都XXXXXX",
+      address: "東京都XXXXXX5",
     });
   };
-  return (
-    <GlobalContextProvider>
-      <MemoryRouter>
-        <AxiosMock mock={mock}>
-          <Customer />
-        </AxiosMock>
-      </MemoryRouter>
-    </GlobalContextProvider>
-  );
+  return DefaultDOM(mock);
 };
 
 export const FilledForm = () => {
   const mock = (axiosMock: MockAdapter) => {
-    axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
-      address: "東京都XXXXXX",
+    axiosMock.onGet("/api/v1/address?postcode=1840014").reply(200, {
+      address: "東京都XXXXXX4",
     });
   };
-  return (
-    <GlobalContextProvider>
-      <MemoryRouter>
-        <AxiosMock mock={mock}>
-          <Customer />
-        </AxiosMock>
-      </MemoryRouter>
-    </GlobalContextProvider>
-  );
+  return DefaultDOM(mock);
 };
 FilledForm.play = async ({ canvasElement }: any) => {
   // Arrange
