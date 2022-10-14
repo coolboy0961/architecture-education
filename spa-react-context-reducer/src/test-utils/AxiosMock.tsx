@@ -3,44 +3,43 @@ import MockAdapter from "axios-mock-adapter";
 import { axiosInstance } from "../apis/axios-instance";
 
 interface IProps {
-  children: any;
-  mock: (adapter: MockAdapter) => void;
+  mockApi: (adapter: MockAdapter) => void;
 }
 
 const axiosMock = new MockAdapter(axiosInstance);
 
 /**
- * StoryBookのstoriesでaxios mock adapterを利用するためのコンポーネント
+ * StoryBookのstoriesでaxios mockApi adapterを利用するためのコンポーネント
  * 
  * 
  * Usage:
    ```
    export const Default = () => {
-    const mock = (axiosMock: MockAdapter) => {
+    const mockApi = (axiosMock: MockAdapter) => {
       axiosMock.onGet('/api/meetings/1').reply(200, {
         id: 1,
         title: 'A Meeting',
       });
     };
     return (
-      <AxiosMock mock={mock}>
+      <>
+        <AxiosMock mockApi={mockApi} />
         <Meeting />
-      </AxiosMock>
+      </>
     );
   };
   ```
- * @param children axios mock adapterを適用したいコンポーネント
- * @param mock モックの内容を定義するメソッド
+ * @param mockApi モックの内容を定義するメソッド
  * @see https://gist.github.com/rafaelrozon/ed86efbea53094726e162dc05882cddc
  */
-function AxiosMock({ children, mock }: IProps) {
+function AxiosMock({ mockApi }: IProps) {
   useEffect(() => {
-    mock(axiosMock);
+    mockApi(axiosMock);
     return () => {
       axiosMock.reset();
     };
-  });
-  return children;
+  }, [mockApi]);
+  return <></>;
 }
 
 export default AxiosMock;

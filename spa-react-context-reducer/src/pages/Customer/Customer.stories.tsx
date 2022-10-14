@@ -12,31 +12,22 @@ export default {
   component: Customer,
 } as ComponentMeta<typeof Customer>;
 
-const TemplateWithMock = (mock: (axiosMock: MockAdapter) => void) => (
+const Template = (mockApi?: (axiosMock: MockAdapter) => void) => (
   <GlobalContextProvider>
     <MemoryRouter>
-      <AxiosMock mock={mock}>
-        <Customer />
-      </AxiosMock>
-    </MemoryRouter>
-  </GlobalContextProvider>
-);
-
-const Template = () => (
-  <GlobalContextProvider>
-    <MemoryRouter>
+      {mockApi && <AxiosMock mockApi={mockApi} />}
       <Customer />
     </MemoryRouter>
   </GlobalContextProvider>
 );
 
 export const Default: ComponentStory<typeof Customer> = () => {
-  const mock = (axiosMock: MockAdapter) => {
-    axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
+  const mockApi = (axiosMock: MockAdapter) => {
+    axiosMock.onGet("/api/v1/address?postcode=1840014").reply(200, {
       address: "東京都XXXXXX",
     });
   };
-  return TemplateWithMock(mock);
+  return Template(mockApi);
 };
 Default.storyName = "Customerページの手動動作確認";
 
@@ -60,12 +51,12 @@ FilledName.play = async ({ canvasElement }: any) => {
 };
 
 export const AutoFilledAddress1: ComponentStory<typeof Customer> = () => {
-  const mock = (axiosMock: MockAdapter) => {
+  const mockApi = (axiosMock: MockAdapter) => {
     axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
       address: "東京都XXXXXX",
     });
   };
-  return TemplateWithMock(mock);
+  return Template(mockApi);
 };
 AutoFilledAddress1.storyName =
   "郵便番号を入れて、チェックボタンをクリックすると、住所が「住所1」に入ること";
