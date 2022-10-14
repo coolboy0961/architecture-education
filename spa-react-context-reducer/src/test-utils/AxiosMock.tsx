@@ -11,6 +11,8 @@ const axiosMock = new MockAdapter(axiosInstance);
 
 /**
  * StoryBookのstoriesでaxios mock adapterを利用するためのコンポーネント
+ * 
+ * 
  * Usage:
    ```
    export const Default = () => {

@@ -1,4 +1,4 @@
-import { ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { GlobalContextProvider } from "../../contexts/GlobalContext";
 import { MemoryRouter } from "react-router-dom";
 import { within, userEvent, waitFor } from "@storybook/testing-library";
@@ -12,7 +12,7 @@ export default {
   component: Customer,
 } as ComponentMeta<typeof Customer>;
 
-const DefaultDOMWithMock = (mock: (axiosMock: MockAdapter) => void) => (
+const TemplateWithMock = (mock: (axiosMock: MockAdapter) => void) => (
   <GlobalContextProvider>
     <MemoryRouter>
       <AxiosMock mock={mock}>
@@ -22,7 +22,7 @@ const DefaultDOMWithMock = (mock: (axiosMock: MockAdapter) => void) => (
   </GlobalContextProvider>
 );
 
-const DefaultDOM = () => (
+const Template = () => (
   <GlobalContextProvider>
     <MemoryRouter>
       <Customer />
@@ -30,18 +30,18 @@ const DefaultDOM = () => (
   </GlobalContextProvider>
 );
 
-export const Default = () => {
+export const Default: ComponentStory<typeof Customer> = () => {
   const mock = (axiosMock: MockAdapter) => {
     axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
       address: "東京都XXXXXX",
     });
   };
-  return DefaultDOMWithMock(mock);
+  return TemplateWithMock(mock);
 };
 Default.storyName = "Customerページの手動動作確認";
 
-export const FilledName = () => {
-  return DefaultDOM();
+export const FilledName: ComponentStory<typeof Customer> = () => {
+  return Template();
 };
 FilledName.storyName =
   "氏名の入力欄に入力したデータはvalueにBindingされていること";
@@ -59,13 +59,13 @@ FilledName.play = async ({ canvasElement }: any) => {
   expect(actual).toBe(expected);
 };
 
-export const AutoFilledAddress1 = () => {
+export const AutoFilledAddress1: ComponentStory<typeof Customer> = () => {
   const mock = (axiosMock: MockAdapter) => {
     axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
       address: "東京都XXXXXX",
     });
   };
-  return DefaultDOMWithMock(mock);
+  return TemplateWithMock(mock);
 };
 AutoFilledAddress1.storyName =
   "郵便番号を入れて、チェックボタンをクリックすると、住所が「住所1」に入ること";
