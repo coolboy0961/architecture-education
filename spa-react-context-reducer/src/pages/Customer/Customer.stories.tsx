@@ -1,7 +1,7 @@
 import { ComponentMeta } from "@storybook/react";
 import { GlobalContextProvider } from "../../contexts/GlobalContext";
 import { MemoryRouter } from "react-router-dom";
-import { within, userEvent } from "@storybook/testing-library";
+import { within, userEvent, waitFor } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import Customer from "./Customer";
 import MockAdapter from "axios-mock-adapter/types";
@@ -12,7 +12,7 @@ export default {
   component: Customer,
 } as ComponentMeta<typeof Customer>;
 
-const DefaultDOM = (mock: (axiosMock: MockAdapter) => void) => (
+const DefaultDOMWithMock = (mock: (axiosMock: MockAdapter) => void) => (
   <GlobalContextProvider>
     <MemoryRouter>
       <AxiosMock mock={mock}>
@@ -22,24 +22,30 @@ const DefaultDOM = (mock: (axiosMock: MockAdapter) => void) => (
   </GlobalContextProvider>
 );
 
+const DefaultDOM = () => (
+  <GlobalContextProvider>
+    <MemoryRouter>
+      <Customer />
+    </MemoryRouter>
+  </GlobalContextProvider>
+);
+
 export const Default = () => {
   const mock = (axiosMock: MockAdapter) => {
     axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
-      address: "東京都XXXXXX5",
+      address: "東京都XXXXXX",
     });
   };
-  return DefaultDOM(mock);
+  return DefaultDOMWithMock(mock);
 };
+Default.storyName = "Customerページの手動動作確認";
 
-export const FilledForm = () => {
-  const mock = (axiosMock: MockAdapter) => {
-    axiosMock.onGet("/api/v1/address?postcode=1840014").reply(200, {
-      address: "東京都XXXXXX4",
-    });
-  };
-  return DefaultDOM(mock);
+export const FilledName = () => {
+  return DefaultDOM();
 };
-FilledForm.play = async ({ canvasElement }: any) => {
+FilledName.storyName =
+  "氏名の入力欄に入力したデータはvalueにBindingされていること";
+FilledName.play = async ({ canvasElement }: any) => {
   // Arrange
   const expected = "React太郎";
 
@@ -51,4 +57,36 @@ FilledForm.play = async ({ canvasElement }: any) => {
 
   // Assert
   expect(actual).toBe(expected);
+};
+
+export const AutoFilledAddress1 = () => {
+  const mock = (axiosMock: MockAdapter) => {
+    axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
+      address: "東京都XXXXXX",
+    });
+  };
+  return DefaultDOMWithMock(mock);
+};
+AutoFilledAddress1.storyName =
+  "郵便番号を入れて、チェックボタンをクリックすると、住所が「住所1」に入ること";
+AutoFilledAddress1.play = async ({ canvasElement }: any) => {
+  // Arrange
+  const expected = "東京都XXXXXX";
+
+  // Act
+  const canvas = within(canvasElement);
+  const postcodeInputElement = canvas.getByTestId("postcode-input-text");
+  userEvent.type(postcodeInputElement, "1840015");
+  const addressInputButtonElement = canvas.getByRole("button", {
+    name: "住所入力",
+  });
+  userEvent.click(addressInputButtonElement);
+
+  await waitFor(() => {
+    const actual = canvas
+      .getByTestId("address1-input-text")
+      .getAttribute("value");
+    // Assert
+    expect(actual).toBe(expected);
+  });
 };
