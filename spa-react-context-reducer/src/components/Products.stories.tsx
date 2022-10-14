@@ -2,6 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import Products from "./Products";
 import { GlobalContextProvider } from "../contexts/GlobalContext";
+import StoreFixture from "../test-utils/StoreFixture";
 
 export default {
   title: "Components/Products",
@@ -36,6 +37,25 @@ TwoProducts.args = {
       name: "商品2",
     },
   ],
+};
+
+export const secondProductIsSelected = () => {
+  const mockStore = StoreFixture.product2SelectedStore();
+  const products = [
+    {
+      code: "product1",
+      name: "商品1",
+    },
+    {
+      code: "product2",
+      name: "商品2",
+    },
+  ];
+  return (
+    <GlobalContextProvider mockStore={mockStore}>
+      <Products products={products} />
+    </GlobalContextProvider>
+  );
 };
 
 export const ThreeProducts = Template.bind({});

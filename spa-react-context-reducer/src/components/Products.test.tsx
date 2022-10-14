@@ -2,25 +2,17 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Products from "./Products";
 import { GlobalContextProvider } from "../contexts/GlobalContext";
-import StoreUtils from "../contexts/GlobalContext/StoreUtils";
 import StoreFixture from "../test-utils/StoreFixture";
 
 describe("Products Componentのテスト", () => {
-  beforeEach(() => {
-    jest
-      .spyOn(StoreUtils, "initStore")
-      .mockReturnValue(StoreFixture.initialStore());
-  });
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
   describe("初期表示の要素存在確認", () => {
     test("初期ステータスでproduct1が選択されている", () => {
       // Arrange
+      const mockStore = StoreFixture.initialStore();
 
       // Act
       render(
-        <GlobalContextProvider>
+        <GlobalContextProvider mockStore={mockStore}>
           <Products products={[]} />
         </GlobalContextProvider>
       );
@@ -34,13 +26,11 @@ describe("Products Componentのテスト", () => {
 
     test("product2が選択されているステータスの場合、画面上もproduct2が選択されている", () => {
       // Arrange
-      jest
-        .spyOn(StoreUtils, "initStore")
-        .mockReturnValue(StoreFixture.product2SelectedStore());
+      const mockStore = StoreFixture.product2SelectedStore();
 
       // Act
       render(
-        <GlobalContextProvider>
+        <GlobalContextProvider mockStore={mockStore}>
           <Products products={[]} />
         </GlobalContextProvider>
       );

@@ -1,10 +1,9 @@
 import { createContext, useContext, useReducer } from "react";
 import { globalReducer } from "./reducers";
-import StoreUtils from "./StoreUtils";
 import { GlobalContextType, Store } from "./types";
 
 const GlobalContext = createContext<GlobalContextType>({
-  store: StoreUtils.initStore(),
+  store: initStore(),
   selectProduct: () => {},
 });
 
@@ -13,6 +12,21 @@ export const useGlobalContext = (): GlobalContextType =>
 
 interface GlobalContextProviderProps {
   children?: React.ReactNode;
+  /**
+   * Test only!
+   * テストを行うときに状態をモックするために利用する。
+   * 
+   * usage:
+   * ```
+   *  const mockStore = StoreFixture.initialStore();
+      render(
+        <GlobalContextProvider mockStore={mockStore}>
+          <Products products={[]} />
+        </GlobalContextProvider>
+      );
+   * ```
+   */
+  mockStore?: Store;
 }
 
 /**
@@ -22,8 +36,12 @@ interface GlobalContextProviderProps {
 export let currentStore: Store;
 export const GlobalContextProvider = ({
   children,
+  mockStore,
 }: GlobalContextProviderProps) => {
-  const [store, dispatch] = useReducer(globalReducer, StoreUtils.initStore());
+  const [store, dispatch] = useReducer(
+    globalReducer,
+    mockStore ? mockStore : initStore()
+  );
   currentStore = store;
   /**
    * 商品選択のアクション
@@ -46,3 +64,18 @@ export const GlobalContextProvider = ({
     </GlobalContext.Provider>
   );
 };
+
+function initStore() {
+  return {
+    user: {
+      name: "",
+      address: "",
+      age: 0,
+    },
+    pages: {
+      productSelectPage: {
+        selectedProductCode: "product1",
+      },
+    },
+  } as Store;
+}
