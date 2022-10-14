@@ -8,11 +8,10 @@ describe("Products Componentのテスト", () => {
   describe("初期表示の要素存在確認", () => {
     test("初期ステータスでproduct1が選択されている", () => {
       // Arrange
-      const mockStore = StoreFixture.initialStore();
 
       // Act
       render(
-        <GlobalContextProvider mockStore={mockStore}>
+        <GlobalContextProvider>
           <Products products={[]} />
         </GlobalContextProvider>
       );
