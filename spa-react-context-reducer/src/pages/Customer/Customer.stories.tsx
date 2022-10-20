@@ -50,6 +50,26 @@ FilledName.play = async ({ canvasElement }: any) => {
   expect(actual).toBe(expected);
 };
 
+export const FilledSex: ComponentStory<typeof Customer> = () => {
+  return Template();
+};
+FilledSex.storyName =
+  "性別のプルダウンリストで[男]を選択してSelectのvalueにBindingされていること";
+FilledSex.play = async ({ canvasElement }: any) => {
+  // Arrange
+  const expected = "male";
+
+  // Act
+  const canvas = within(canvasElement);
+  const sexSelectElement = canvas.getByRole("combobox", {
+    name: "性別：",
+  });
+  userEvent.selectOptions(sexSelectElement, expected);
+
+  // Assert
+  expect(sexSelectElement).toHaveValue(expected);
+};
+
 export const AutoFilledAddress1: ComponentStory<typeof Customer> = () => {
   const mockApi = (axiosMock: MockAdapter) => {
     axiosMock.onGet("/api/v1/address?postcode=1840015").reply(200, {
