@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { apis } from "../../apis/apis";
 
 export default function Customer() {
@@ -8,15 +9,13 @@ export default function Customer() {
     { value: "male", label: "男" },
     { value: "female", label: "女" },
   ];
+
   // Data Binding
-  const [name, setName] = useState("");
   const [sex, setSex] = useState("");
   const [postcode, setPostcode] = useState("");
   const [address1, setAddress1] = useState("");
+
   // Event Method
-  function onChangeName(event: any) {
-    setName(event.target.value);
-  }
   function onChangeSex(event: any) {
     setSex(event.target.value);
   }
@@ -31,6 +30,23 @@ export default function Customer() {
     const address = response.address;
     setAddress1(address);
   }
+
+  // Validation Check
+  interface IFormInput {
+    name: string;
+  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>({
+    mode: "onSubmit",
+    reValidateMode: "onChange",
+  });
+  const onNextButtonClick = handleSubmit((data) => {
+    console.log(JSON.stringify(data));
+  });
+
   // HTML
   return (
     <>
@@ -38,11 +54,17 @@ export default function Customer() {
       <label>
         氏名：
         <input
+          {...register("name", {
+            required: "this is required",
+            maxLength: {
+              value: 8,
+              message: "this is too long",
+            },
+          })}
           type="text"
           data-testid="name-input-text"
-          value={name}
-          onChange={onChangeName}
-        ></input>
+        />
+        <p>{errors.name?.message}</p>
       </label>
       <br />
       <label>
@@ -91,7 +113,7 @@ export default function Customer() {
         </label>
       </div>
       <br />
-      <button>次へ</button>
+      <button onClick={onNextButtonClick}>次へ</button>
     </>
   );
 }

@@ -107,10 +107,9 @@ describe("顧客情報入力ページのテスト", () => {
       render(<Customer />);
       const nameInputElement = screen.getByTestId("name-input-text");
       userEvent.type(nameInputElement, expected);
-      const actual = nameInputElement.getAttribute("value");
 
       // Assert
-      expect(actual).toBe(expected);
+      expect(nameInputElement).toHaveDisplayValue(expected);
     });
     test.each`
       sexValue    | expected

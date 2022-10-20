@@ -44,10 +44,53 @@ FilledName.play = async ({ canvasElement }: any) => {
   const canvas = within(canvasElement);
   const nameInputElement = canvas.getByTestId("name-input-text");
   userEvent.type(nameInputElement, expected);
-  const actual = nameInputElement.getAttribute("value");
 
   // Assert
-  expect(actual).toBe(expected);
+  expect(nameInputElement).toHaveDisplayValue(expected);
+};
+
+export const NameValidationErrorRequired: ComponentStory<typeof Customer> =
+  () => {
+    return Template();
+  };
+NameValidationErrorRequired.storyName =
+  "氏名の入力欄に入力せずに次へのボタンをクリックするとエラーメッセージが表示される";
+NameValidationErrorRequired.play = async ({ canvasElement }: any) => {
+  // Arrange
+  const expected = "this is required";
+
+  // Act
+  const canvas = within(canvasElement);
+  const nextButton = canvas.getByRole("button", {
+    name: "次へ",
+  });
+  userEvent.click(nextButton);
+
+  // Assert
+  canvas.findByText(expected);
+};
+
+export const NameValidationErrorTooLong: ComponentStory<typeof Customer> =
+  () => {
+    return Template();
+  };
+NameValidationErrorTooLong.storyName =
+  "氏名の入力欄に9桁の文字を入力して、次へのボタンをクリックするとエラーメッセージが表示される";
+NameValidationErrorTooLong.play = async ({ canvasElement }: any) => {
+  // Arrange
+  const expected = "this is too long";
+
+  // Act
+  const canvas = within(canvasElement);
+  const nameInputElement = canvas.getByTestId("name-input-text");
+  userEvent.type(nameInputElement, "aaaaaaaaa");
+  const nextButton = canvas.getByRole("button", {
+    name: "次へ",
+  });
+  userEvent.click(nextButton);
+
+  // Assert
+  canvas.findByText(expected);
 };
 
 export const FilledSex: ComponentStory<typeof Customer> = () => {
