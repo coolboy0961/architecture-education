@@ -8,6 +8,10 @@ export default {
   title: "Pages/Index",
 } as ComponentMeta<typeof GlobalContextProvider>;
 
+/**
+ * Indexページから後続ページに遷移できるStory
+ * @link https://chestozo.medium.com/how-to-mock-location-inside-storybook-stories-76a7c0705354
+ */
 export const Default: ComponentStory<typeof GlobalContextProvider> = () => {
   return (
     <GlobalContextProvider>
