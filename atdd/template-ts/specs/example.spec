@@ -1,53 +1,53 @@
-# Getting Started with Gauge
+# Gaugeをはじめよう
 
-This is an example markdown specification file.
-Every heading in this file is a scenario.
-Every bulleted point is a step.
+これは、マークダウン仕様ファイルの例です。
+このファイルのすべての見出しは、シナリオです。
+箇条書きのポイントは、すべてステップです。
 
-To execute this specification, use
+この仕様を実行するには
 	gauge run specs
 
-This is a context step that runs before every scenario
-* Open todo application
+これは、各シナリオの前に実行されるコンテキスト・ステップです。
+* TODOアプリを開く
 
-## Display number of items
-* Add task "first task"
-* Must display "1 item left"
-* Add task "second task"
-* Must display "2 items left"
+## タスクの数を表示する
+* タスク追加 "1個目のタスク"
+* 表示する "1 item left"
+* タスク追加 "2個目のタスク"
+* 表示する "2 items left"
 
-## Must list only active tasks
-* Add tasks 
-
-   |description|
-   |-----------|
-   |first task |
-   |second task|
-   |third task |
-   |fourth task|
-   |fifth task |
-
-* Complete tasks 
+## アクティブなタスクだけ表示する
+* 複数のタスク追加
 
    |description|
    |-----------|
-   |second task|
-   |fifth task |
-* View "Active" tasks
-* Must have 
+   |1個目のタスク |
+   |2個目のタスク|
+   |3個目のタスク |
+   |4個目のタスク|
+   |5個目のタスク |
+
+* 複数のタスクを完了する
 
    |description|
    |-----------|
-   |first task |
-   |third task |
-   |fourth task|
-* Must not have 
+   |2個目のタスク|
+   |5個目のタスク |
+* "Active" 状態のタスクだけ表示する
+* 存在する
 
    |description|
    |-----------|
-   |second task|
-   |fifth task |
+   |1個目のタスク |
+   |3個目のタスク |
+   |4個目のタスク|
+* 存在しない
+
+   |description|
+   |-----------|
+   |2個目のタスク|
+   |5個目のタスク |
 
 A tear down step for every scenario
 ___
-* Clear all tasks
+* 全てのタスクをクリア
