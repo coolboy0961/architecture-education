@@ -2,8 +2,8 @@
   "name": "gauge-ts-template",
   "description": "Starter template for writing TypeScript tests for Gauge",
   "scripts": {
-    "test": "gauge run specs",
-    "test:headless": "gauge run --env headless specs"
+    "test": "gauge run --verbose specs",
+    "test:headless": "gauge run --env headless --verbose specs"
   },
   "dependencies": {
     "gauge-ts": "0.1.1",

@@ -7,7 +7,7 @@
 この仕様を実行するには
 	gauge run specs
 
-これは、各シナリオの前に実行されるコンテキスト・ステップです。
+This is a context step that runs before every scenario
 * TODOアプリを開く
 
 ## タスクの数を表示する
