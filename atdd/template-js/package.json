@@ -6,5 +6,8 @@
   },
   "dependencies": {
     "taiko": "latest"
+  },
+  "devDependencies": {
+    "@getgauge/cli": "^1.4.3"
   }
 }
