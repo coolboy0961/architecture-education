@@ -3,7 +3,7 @@
   "description": "Starter template for writing TypeScript tests for Gauge",
   "scripts": {
     "test": "gauge run specs",
-    "test:headless": "headless=Y gauge run specs"
+    "test:headless": "gauge run --env headless specs"
   },
   "dependencies": {
     "gauge-ts": "0.1.1",
