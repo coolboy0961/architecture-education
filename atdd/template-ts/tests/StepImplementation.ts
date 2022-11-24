@@ -53,7 +53,7 @@ export default class StepImplementation {
 
   @Step("複数のタスクを追加 <table>")
   public async addTasks(table: Table) {
-    for (var row of table.getTableRows()) {
+    for (const row of table.getTableRows()) {
       await write(row.getCell("description"));
       await press("Enter");
     }
@@ -61,7 +61,7 @@ export default class StepImplementation {
 
   @Step("複数のタスクを完了する <table>")
   public async completeTasks(table: Table) {
-    for (var row of table.getTableRows()) {
+    for (const row of table.getTableRows()) {
       await click(checkBox(toLeftOf(row.getCell("description"))));
     }
   }
@@ -73,14 +73,14 @@ export default class StepImplementation {
 
   @Step("存在する <table>")
   public async mustHave(table: Table) {
-    for (var row of table.getTableRows()) {
+    for (const row of table.getTableRows()) {
       assert.ok(await text(row.getCell("description")).exists());
     }
   }
 
   @Step("存在しない <table>")
   public async mustNotHave(table: Table) {
-    for (var row of table.getTableRows()) {
+    for (const row of table.getTableRows()) {
       assert.ok(!(await text(row.getCell("description")).exists(0, 0)));
     }
   }
