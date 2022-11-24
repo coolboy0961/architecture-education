@@ -11,13 +11,13 @@ This is a context step that runs before every scenario
 * TODOアプリを開く
 
 ## タスクの数を表示する
-* タスク追加 "1個目のタスク"
-* 表示する "1 item left"
-* タスク追加 "2個目のタスク"
-* 表示する "2 items left"
+* "1個目のタスク"をタスク追加
+* "1 item left"が表示される
+* "2個目のタスク"をタスク追加
+* "2 items left"が表示される
 
 ## アクティブなタスクだけ表示する
-* 複数のタスク追加
+* 複数のタスクを追加
 
    |description|
    |-----------|

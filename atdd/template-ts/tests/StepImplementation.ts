@@ -33,7 +33,7 @@ export default class StepImplementation {
     await goto("todo.taiko.dev");
   }
 
-  @Step("タスク追加 <item>")
+  @Step("<item>をタスク追加")
   public async addTask(item: string) {
     await write(
       item,
@@ -46,12 +46,12 @@ export default class StepImplementation {
     await press("Enter");
   }
 
-  @Step("表示する <message>")
+  @Step("<message>が表示される")
   public async checkDisplay(message: string) {
     assert.ok(await text(message).exists(0, 0));
   }
 
-  @Step("複数のタスク追加 <table>")
+  @Step("複数のタスクを追加 <table>")
   public async addTasks(table: Table) {
     for (var row of table.getTableRows()) {
       await write(row.getCell("description"));
