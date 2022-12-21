@@ -4,5 +4,6 @@
     "*.cpt": "gauge"
   },
   "files.autoSaveDelay": 500,
-  "files.autoSave": "afterDelay"
+  "files.autoSave": "afterDelay",
+  "python.analysis.typeCheckingMode": "basic"
 }
