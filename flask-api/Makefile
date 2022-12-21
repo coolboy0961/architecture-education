@@ -9,3 +9,7 @@ unit-test:
 
 api-test:
 	python -m pytest tests/api-test
+
+sync-lib:
+	rm -f requirements.txt
+	pip freeze > requirements.txt
