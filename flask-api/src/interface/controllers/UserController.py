@@ -1,4 +1,4 @@
-from infrastructure.FlakeInterfaceAdapter import ControllerRequest
+from src.infrastructure.FlakeInterfaceAdapter import ControllerRequest
 
 
 class UserResponse:

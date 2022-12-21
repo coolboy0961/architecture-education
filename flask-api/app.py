@@ -1,8 +1,8 @@
 from flask import Flask, request
 import json
 
-from infrastructure.FlakeInterfaceAdapter import FlaskInterfaceAdapter
-from interface.controllers.UserController import UserController
+from src.infrastructure.FlakeInterfaceAdapter import FlaskInterfaceAdapter
+from src.interface.controllers.UserController import UserController
 
 def create_app():
     app = Flask(__name__)
