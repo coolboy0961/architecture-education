@@ -1,10 +1,12 @@
 import json
-import pytest
 
 from app import create_app
 
 
 def test_normal(client):
+    """
+    /users にアクセスして正常なレスポンスを返すこと
+    """
     # Arrange
     expected = bytes(json.dumps([
         {

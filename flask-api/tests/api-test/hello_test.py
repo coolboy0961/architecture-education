@@ -1,9 +1,10 @@
-import pytest
-
 from app import create_app
 
 
 def test_normal(client):
+    """
+    / にアクセスして正常なレスポンスを返すこと
+    """
     # Arrange
     expected = b"Hello, World!"
 
