@@ -1,9 +1,7 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request
 import json
+
 from infrastructure.FlakeInterfaceAdapter import FlaskInterfaceAdapter
-
-
 from interface.controllers.UserController import UserController
 
 def create_app():

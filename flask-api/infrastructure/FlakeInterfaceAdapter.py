@@ -39,6 +39,4 @@ class FlaskInterfaceAdapter:
           print("Exception:")
           print(e)
           body = {}
-        # if flask_request.data is not None:
-        # body = flask_request.json
         return ControllerRequest(headers, query_parameters, body)
