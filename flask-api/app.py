@@ -11,6 +11,12 @@ def create_app():
     @app.route("/")
     def hello():
         return "Hello, World!"
+
+    @app.get("/users")
+    def users_get():
+        user_controller = UserController()
+        return adapter.call(user_controller.get, request)
+
     @app.get("/test")
     def test_get():
         print("request.headers:")
@@ -31,12 +37,6 @@ def create_app():
         print("request.json:")
         print(request.json)
         return ""
-
-
-    @app.get("/users")
-    def users_get():
-        user_controller = UserController()
-        return adapter.call(user_controller.get, request)
 
     return app
 
