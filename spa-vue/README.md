@@ -16,3 +16,8 @@ add following setting to jest.conf.js
     "^.+\\.tsx?$": "ts-jest",
   },
 ```
+
+add storybook to vue2
+```
+npx storybook init --type vue
+```
